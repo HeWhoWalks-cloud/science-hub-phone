@@ -1,0 +1,2531 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>مركز تدريس العلوم</title>
+<meta name="theme-color" content="#1D232C">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400..700&display=swap" media="print" onload="this.media='all'">
+<style>
+:root{--paper:#FAF7F0;--card:#fff;--ink:#1D232C;--ink2:#535B66;--line:#DDD5C6;--mist:#F1ECE1;
+  --att:#2374C6;--tool:#7B4FD0;--part:#18874A;--pts:#B97A00;--warn:#C93A26;--m:var(--att);
+  --font:"Readex Pro","Noto Sans Arabic","Segoe UI",Tahoma,sans-serif}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{font-size:clamp(15px,2.2vw + 8px,19px)}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);padding-bottom:5.6rem;-webkit-font-smoothing:antialiased}
+button{font-family:inherit;color:inherit}
+header{padding:.6rem .8rem .2rem;display:flex;flex-wrap:wrap;gap:.4rem;align-items:center}
+header .chip{min-height:2.3rem;padding:0 .8rem;font-size:.9rem}
+.chip{all:unset;cursor:pointer;box-sizing:border-box;min-height:2.5rem;padding:0 .95rem;border-radius:999px;display:inline-flex;align-items:center;font-weight:700;font-size:.95rem;box-shadow:inset 0 0 0 2px var(--line);background:#fff}
+.chip.on{background:var(--ink);color:#fff;box-shadow:none}
+.chip:focus-visible,.mode:focus-visible,.st:focus-visible,.act:focus-visible{outline:3px solid #E0A21A;outline-offset:2px}
+header .info{font-size:.85rem;color:var(--ink2);font-weight:600}
+header .sp{flex:1}
+.view{display:inline-flex;border-radius:999px;box-shadow:inset 0 0 0 2px var(--line);background:#fff;overflow:hidden}
+.view button{all:unset;cursor:pointer;padding:.5rem .85rem;font-size:.85rem;font-weight:700}
+.view button.on{background:var(--ink);color:#fff}
+.sticky{position:sticky;top:0;z-index:5;background:var(--paper);padding:.5rem .8rem .55rem;box-shadow:0 1px 0 var(--line)}
+.modes{display:grid;grid-template-columns:repeat(5,1fr);gap:.4rem}
+.mode{all:unset;cursor:pointer;box-sizing:border-box;min-height:3.6rem;border-radius:1rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.15rem;font-weight:700;font-size:.82rem;
+  background:#fff;color:var(--c);box-shadow:inset 0 0 0 2px var(--c)}
+.mode svg{width:1.45rem;height:1.45rem}
+.mode.on{background:var(--c);color:#fff;box-shadow:0 .2rem 0 rgba(0,0,0,.25)}
+.mode[hidden]{display:none}
+.sub{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.5rem;align-items:center;min-height:2.4rem}
+.sub .lbl{font-size:.82rem;color:var(--ink2);font-weight:600}
+.sub .chip{min-height:2.2rem;font-size:.85rem;padding:0 .8rem}
+.sub .chip.on{background:var(--m)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(6.6rem,1fr));gap:.5rem;padding:.7rem .8rem}
+.st{all:unset;cursor:pointer;box-sizing:border-box;position:relative;min-height:5.4rem;border-radius:1rem;padding:.5rem .55rem .45rem;background:var(--card);box-shadow:inset 0 0 0 2px var(--line);display:flex;flex-direction:column;gap:.3rem;user-select:none;-webkit-user-select:none;touch-action:manipulation}
+.st .nm{font-weight:700;font-size:.95rem;line-height:1.35;flex:1;padding-inline-end:1.5rem}
+.st.abs{background:var(--mist);color:var(--ink2);box-shadow:inset 0 0 0 2px var(--line)}
+.st.abs .nm{text-decoration:line-through;text-decoration-thickness:2px}
+.st{min-width:0;overflow:hidden}
+.st .bd{display:flex;flex-wrap:wrap;gap:.22rem;min-height:1.35rem;min-width:0}
+.b{display:inline-flex;align-items:center;gap:.15rem;height:1.35rem;padding:0 .4rem;border-radius:.45rem;font-size:.72rem;font-weight:700;color:#fff;background:var(--c);direction:rtl;white-space:nowrap}
+.b svg{width:.8rem;height:.8rem}
+.b.out{background:#fff;color:var(--c);box-shadow:inset 0 0 0 1.5px var(--c)}
+.st .more{position:absolute;left:.15rem;top:.1rem;width:2rem;height:2rem;border-radius:.6rem;display:flex;align-items:center;justify-content:center;color:var(--ink2)}
+.st .more svg{width:1.1rem;height:1.1rem}
+.bar{position:fixed;inset-inline:0;bottom:0;z-index:6;display:flex;gap:.5rem;padding:.6rem .8rem calc(.6rem + env(safe-area-inset-bottom,0px));background:rgba(250,247,240,.96);box-shadow:0 -1px 0 var(--line)}
+.act{all:unset;cursor:pointer;box-sizing:border-box;min-height:3rem;padding:0 .7rem;white-space:nowrap;border-radius:.9rem;display:inline-flex;align-items:center;justify-content:center;gap:.4rem;font-weight:700;font-size:.9rem;background:#fff;box-shadow:inset 0 0 0 2px var(--ink),0 .18rem 0 var(--ink)}
+.act:active{transform:translateY(.1rem);box-shadow:inset 0 0 0 2px var(--ink),0 .05rem 0 var(--ink)}
+.act svg{width:1.15rem;height:1.15rem}
+.act.undo{flex:1;min-width:0;justify-content:flex-start;overflow:hidden;font-size:.82rem}
+.act.undo span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.act[disabled]{opacity:.45;pointer-events:none}
+.act.dark{background:var(--ink);color:#fff;box-shadow:0 .18rem 0 #000}
+.sheet{position:fixed;inset:0;z-index:20;display:none;align-items:flex-end;justify-content:center;background:rgba(29,35,44,.5)}
+.sheet.on{display:flex}
+.sheet .pan{width:min(46rem,100%);max-height:88vh;overflow:auto;background:#fff;border-radius:1.4rem 1.4rem 0 0;padding:1rem 1rem 1.4rem}
+.sheet h2{margin:0 0 .2rem;font-size:1.25rem}
+.sheet .x{all:unset;cursor:pointer;float:left;width:2.6rem;height:2.6rem;border-radius:.8rem;display:flex;align-items:center;justify-content:center;box-shadow:inset 0 0 0 2px var(--line)}
+.sheet .x svg{width:1.1rem;height:1.1rem}
+.sheet p{margin:.3rem 0;color:var(--ink2);font-size:.9rem;line-height:1.7}
+.rowc{display:flex;flex-wrap:wrap;gap:.4rem;margin:.6rem 0}
+.sheet input[type=text]{width:100%;font:600 1rem var(--font);padding:.7rem .8rem;border-radius:.8rem;border:2px solid var(--line);direction:rtl}
+.sheet input:focus{outline:3px solid #E0A21A;border-color:var(--ink)}
+.sheet h3{margin:1rem 0 .1rem;font-size:.95rem;color:var(--ink2)}
+.hist{margin:0;padding:0;list-style:none;font-size:.9rem}
+.hist li{padding:.4rem 0;border-top:1px solid var(--mist);display:flex;gap:.6rem;align-items:center}
+.hist li.none{color:var(--ink2)}
+.hist li span{flex:1}
+.hist time{color:var(--ink2);direction:ltr;font-variant-numeric:tabular-nums;font-size:.82rem}
+.del{all:unset;cursor:pointer;box-sizing:border-box;min-height:2.2rem;padding:0 .8rem;border-radius:.6rem;font-size:.8rem;font-weight:700;color:var(--warn);box-shadow:inset 0 0 0 1.5px var(--warn)}
+.del:focus-visible{outline:3px solid #E0A21A}
+.box{margin:.8rem 0 .2rem;padding:.7rem .8rem .3rem;border-radius:1rem;background:#FCFBF8;box-shadow:inset 0 0 0 2px var(--mist);font-size:.9rem}
+.box .rowc{margin:.45rem 0}
+.chip.sm{min-height:2.2rem;padding:0 .75rem;font-size:.84rem}
+.pan.full{width:min(68rem,100%);max-height:94vh}
+.meta{color:var(--ink2);font-size:.84rem;margin:.2rem 0}
+.seg{display:inline-flex;margin:.5rem 0 .2rem;border-radius:.8rem;box-shadow:inset 0 0 0 2px var(--line);overflow:hidden}
+.seg button{all:unset;cursor:pointer;padding:.5rem 1.3rem;font-weight:700;font-size:.9rem}
+.seg button.on{background:var(--ink);color:#fff}
+.stats{display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;margin:.6rem 0 .7rem;font-size:.82rem;color:var(--ink2);font-weight:600}
+.stats div{display:flex;align-items:baseline;gap:.35rem}
+.stats b{font-size:1.5rem;direction:ltr}
+.tw{overflow:auto;max-height:56vh;border-top:2px solid var(--ink);border-bottom:2px solid var(--ink)}
+table.rp{border-collapse:separate;border-spacing:0;width:100%;font-size:.86rem}
+table.rp th{position:sticky;top:0;z-index:1;background:#fff;color:var(--ink2);font-weight:700;font-size:.76rem;padding:.55rem .5rem;border-bottom:1px solid var(--line);white-space:nowrap;text-align:center}
+table.rp td{padding:.5rem .5rem;border-bottom:1px solid var(--mist);text-align:center;background:#fff;vertical-align:middle}
+table.rp tr:nth-child(even) td{background:#FCFBF8}
+table.rp th:first-child,table.rp td.n{text-align:right;position:sticky;right:0;z-index:1}
+table.rp th:first-child{z-index:2}
+table.rp td.n{font-weight:700;white-space:nowrap;cursor:pointer;box-shadow:inset 1px 0 0 var(--mist)}
+table.rp td small{color:var(--ink2);font-size:.74rem;white-space:nowrap}
+table.rp td.okc{color:#9AA1AB;font-size:.8rem}
+table.rp td.hot{background:#FDECEA !important}
+table.rp td.nt{text-align:right;font-size:.8rem;color:var(--ink2);min-width:9rem}
+.slot{all:unset;cursor:pointer;box-sizing:border-box;min-height:3rem;padding:.3rem .9rem;border-radius:1rem;background:var(--ink);color:#fff;display:flex;flex-direction:column;justify-content:center;line-height:1.35}
+.slot b{font-size:1rem}.slot small{font-size:.72rem;opacity:.8;font-weight:600}
+.bell{all:unset;cursor:pointer;box-sizing:border-box;position:relative;width:3rem;height:3rem;border-radius:1rem;display:none;align-items:center;justify-content:center;background:#fff;box-shadow:inset 0 0 0 2px var(--line)}
+.bell svg{width:1.4rem;height:1.4rem}
+.bell i{position:absolute;top:-.3rem;left:-.3rem;min-width:1.4rem;height:1.4rem;border-radius:999px;background:var(--warn);color:#fff;font:700 .78rem var(--font);display:flex;align-items:center;justify-content:center;font-style:normal}
+body:not(.board) .bell{display:flex}
+.slot:focus-visible,.bell:focus-visible{outline:3px solid #E0A21A;outline-offset:2px}
+.toast{position:fixed;inset-inline:.8rem;top:.8rem;z-index:30;display:none;gap:.6rem;align-items:center;padding:.7rem .9rem;border-radius:1rem;background:var(--warn);color:#fff;font-weight:700;font-size:.9rem;box-shadow:0 .6rem 1.6rem -.5rem rgba(0,0,0,.5)}
+.toast.on{display:flex}
+.toast.info{background:var(--att)}.toast.info button{color:var(--att)}
+.tt .c.ed{background:#fff;box-shadow:inset 0 0 0 2px var(--ink);color:var(--ink)}
+.toast button{all:unset;cursor:pointer;margin-inline-start:auto;padding:.35rem .8rem;border-radius:.6rem;background:#fff;color:var(--warn);font-size:.82rem;white-space:nowrap}
+.tt{display:grid;grid-template-columns:4.2rem repeat(7,1fr);gap:.25rem;font-size:.78rem;margin:.6rem 0}
+.tt div,.tt button{all:unset;box-sizing:border-box;min-height:2.6rem;border-radius:.5rem;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-weight:700}
+.tt .h{color:var(--ink2);font-weight:600;font-size:.7rem}
+.tt .c{background:var(--mist)}
+.tt button.c{cursor:pointer;background:#fff;box-shadow:inset 0 0 0 2px var(--line)}
+.tt .c.now{background:var(--ink);color:#fff;box-shadow:none}
+.tt .c.off{opacity:.45}
+.fu{list-style:none;margin:.6rem 0;padding:0}.fu li{padding:.7rem 0;border-top:1px solid var(--mist);display:flex;gap:.6rem;align-items:center}.fu li span{flex:1}
+.ctl{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;padding:.6rem .8rem 0;font-size:.84rem;color:var(--ink2);font-weight:600}
+.ctl:empty{display:none}
+.ctl .chip{min-height:2.3rem;padding:0 .8rem;font-size:.85rem;color:var(--ink)}
+.ctl .chip.on{color:#fff}
+.ctl h2{margin:0;font-size:1.3rem;color:var(--ink)}
+/* ---- phone link ---- */
+#qr.big{width:min(34rem,62vh)}
+#scVid{display:block;width:100%;max-height:46vh;border-radius:1rem;background:#000;margin:.6rem 0}
+.scst{font-weight:700;color:var(--ink) !important;font-size:1rem !important}
+.ctr{text-align:center}
+body.phone .lapt{display:none}
+#barx:empty{display:none}#barx{display:flex}
+.livech{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:.4rem;min-height:2rem;padding:0 .7rem;border-radius:.6rem;font-size:.78rem;font-weight:700;color:#fff;background:#18874A}
+.livech::before{content:'';width:.55rem;height:.55rem;border-radius:50%;background:#fff}
+.okc{color:#18874A !important;font-weight:700}
+/* ---- seating ---- */
+.room{padding:.7rem .8rem}
+.front{margin:0 auto .8rem;width:min(70%,24rem);text-align:center;font-weight:700;font-size:.8rem;color:#fff;background:var(--ink);border-radius:.6rem;padding:.3rem}
+.rows{display:grid;gap:.8rem .7rem;grid-template-columns:repeat(var(--per),1fr)}
+.desk{display:grid;gap:.25rem;grid-template-columns:repeat(var(--dc),1fr);padding:.28rem;border-radius:.9rem;background:var(--mist);min-width:0}
+.desk .st{min-height:4.1rem;padding:.35rem .3rem .3rem;border-radius:.7rem}
+.desk .st .nm{font-size:.76rem;padding-inline-end:0}
+.ini{display:none}
+@media (max-width:700px){.desk .fam{display:none}.desk .ini{display:inline}.desk .st{min-height:3.6rem;padding:.3rem .2rem}.desk .st .nm{font-size:.72rem}.rows{gap:.6rem .35rem}.desk{padding:.18rem;gap:.15rem}}
+.desk .st .more{display:none}
+.desk .st .b{font-size:.62rem;height:1.15rem;padding:0 .25rem}
+.gh{all:unset;box-sizing:border-box;grid-column:1/-1;display:flex;align-items:center;gap:.4rem;min-height:2.3rem;padding:0 .6rem;border-radius:.6rem;background:var(--ink);color:#fff;font-weight:700;font-size:.78rem}
+button.gh{cursor:pointer}
+.gh span{flex:1}
+.gh b{font-size:.78rem;color:#FFD98A;white-space:nowrap}
+.gh i{font-style:normal;padding:.15rem .5rem;border-radius:.5rem;background:#fff;color:var(--ink);white-space:nowrap}
+.gh.still{justify-content:center;background:transparent;color:var(--ink2)}
+button.gh:focus-visible{outline:3px solid #E0A21A;outline-offset:2px}
+@media (max-width:700px){.gh{flex-wrap:wrap;padding:.25rem .4rem;font-size:.7rem;gap:.2rem}.gh b{font-size:.7rem}}
+.st.empty{background:transparent;box-shadow:none;border:2px dashed var(--line);cursor:default}
+.st.pick{box-shadow:inset 0 0 0 3px var(--ink)}
+.st.bad{box-shadow:inset 0 0 0 3px var(--warn);background:#FDECEA}
+body.arr .sticky,body.show .sticky,body.show .bar{display:none}
+body.arr .desk .st{touch-action:none;cursor:grab}
+body.show{padding-bottom:1rem}
+body.show .desk .st{min-height:3.4rem;justify-content:center;text-align:center}
+body.show .desk .st .nm{flex:0;font-size:clamp(.78rem,1.5vw,1.25rem)}
+.ghost{position:fixed;z-index:40;pointer-events:none;transform:translate(-50%,-60%) rotate(-3deg);padding:.5rem .7rem;border-radius:.8rem;background:var(--ink);color:#fff;font-weight:700;font-size:.85rem;box-shadow:0 .6rem 1.4rem -.4rem rgba(0,0,0,.5)}
+.pairx{display:inline-flex;align-items:center;gap:.4rem;min-height:2.2rem;padding:0 .3rem 0 .7rem;border-radius:999px;background:#FDECEA;color:var(--warn);font-weight:700;font-size:.8rem}
+.pairx button{all:unset;cursor:pointer;width:1.7rem;height:1.7rem;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.pairx svg{width:.9rem;height:.9rem}
+#qr{display:block;margin:.8rem auto;width:min(19rem,80vw);height:auto;background:#fff;border-radius:.6rem;image-rendering:pixelated}
+.board-note{display:none;margin:.5rem .8rem 0;padding:.55rem .8rem;border-radius:.8rem;background:#FFF4D6;font-size:.85rem;font-weight:600}
+body.board .board-note{display:block}
+@media (min-width:900px){.grid{grid-template-columns:repeat(8,1fr)}.modes{max-width:46rem}}
+.room.flip .front{margin:.8rem auto 0}
+.seg.sm{margin:0}.seg.sm button{padding:.4rem .9rem;font-size:.82rem}
+.chip.warnon{background:var(--warn);color:#fff;box-shadow:none}
+.ctl .hint{flex-basis:100%}
+body.board .room{flex:1;display:flex;flex-direction:column;padding:.4rem .8rem}
+body.board .room .rows{flex:1;grid-auto-rows:1fr}
+body.board .desk .st{min-height:0;padding:.3rem .45rem;gap:.1rem}
+body.board .room .rows{gap:.45rem .6rem}body.board .desk{padding:.2rem;gap:.2rem}body.board .room .front{margin:0 auto .45rem;padding:.2rem}body.board .desk .st .bd{min-height:1.2rem}
+body.board.show .desk .st{justify-content:center}
+/* the room on the board always fits one screen: rows share the height left after the controls */
+body.board.room-on{height:100vh;min-height:0;overflow:hidden}
+body.board.room-on .room{flex:1;min-height:0}
+body.board.room-on .room .rows{min-height:0;grid-auto-rows:minmax(0,1fr)}
+body.board.room-on .desk{min-height:0;grid-template-rows:auto;grid-auto-rows:minmax(0,1fr)}
+body.board.room-on .desk .st{overflow:hidden}
+body.board.room-on .gh{min-height:1.9rem}
+.gh.still b{color:var(--pts)}
+body.board.room-on:not(.show) .desk .st{flex-direction:row;flex-wrap:wrap;align-items:center;align-content:center;column-gap:.4rem}
+body.board.room-on:not(.show) .desk .st .nm{flex:1 1 auto}body.board.room-on .desk .st .bd{margin-top:0;min-height:0}
+@media (min-width:900px){body.board .desk .st .nm{font-size:1.05rem}body.board .desk .st .b{font-size:.75rem;height:1.3rem}body.show .desk .st .nm{font-size:1.25rem}}
+/* ---- reports ---- */
+.chart{width:100%;height:auto;max-width:46rem;display:block;margin:.4rem 0;font:600 11px var(--font);fill:#6B7280}
+.legend{display:flex;flex-wrap:wrap;gap:.4rem 1.2rem;font-size:.82rem;font-weight:600;color:var(--ink2)}
+.legend i{display:inline-block;width:1rem;height:.3rem;border-radius:.2rem;margin-inline-end:.35rem;vertical-align:middle}
+.chip[disabled]{opacity:.4;pointer-events:none}
+.ctl .sp,.rowc .sp{flex:1}
+@media print{
+  @page{size:A4 landscape;margin:10mm}
+  body{padding:0;background:#fff;display:block !important}
+  body>*:not(#sheet){display:none !important}
+  .sheet{position:static;display:block !important;background:none}
+  .sheet .pan{width:100%;max-height:none;overflow:visible;border-radius:0;padding:0;box-shadow:none}
+  .sheet .x,.noprint{display:none !important}
+  .tw{max-height:none;overflow:visible;border-color:#000}
+  table.rp th{position:static}table.rp td.n{position:static}
+  table.rp td,table.rp th{padding:.25rem .35rem;font-size:9.5pt}
+  tr{break-inside:avoid}.chart{max-width:16cm;break-inside:avoid}
+}
+/* ---- stage 1 additions ---- */
+.perm{all:unset;cursor:pointer;box-sizing:border-box;display:flex;align-items:center;gap:.6rem;margin:.3rem .8rem 0;padding:.7rem 1rem;border-radius:.9rem;background:var(--warn);color:#fff;font-weight:700;font-size:1rem;width:calc(100% - 1.6rem)}
+.perm[hidden]{display:none}.perm svg{width:1.3rem;height:1.3rem;flex:none}.perm small{display:block;font-weight:600;font-size:.8rem;opacity:.9}
+.perm:focus-visible{outline:3px solid #E0A21A;outline-offset:2px}
+.brand{font-size:1.05rem}
+.slot{text-align:right}div.slot{cursor:default}
+.save{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:.4rem;min-height:2.3rem;padding:0 .5rem;font-size:.78rem;font-weight:700;color:var(--ink2);border-radius:.6rem}
+.save i{width:.65rem;height:.65rem;border-radius:50%;background:#18874A;flex:none}
+.save.warn i{background:#B97A00}.save.bad{color:var(--warn)}.save.bad i{background:var(--warn)}
+.save:focus-visible{outline:3px solid #E0A21A}
+.priv{display:inline-flex;align-items:center;min-height:2rem;padding:0 .7rem;border-radius:.6rem;font-size:.78rem;font-weight:700;color:var(--warn);box-shadow:inset 0 0 0 2px var(--warn);background:#fff}
+header .chip svg{width:1.1rem;height:1.1rem;margin-inline-end:.35rem}
+.remind{display:none;gap:.6rem;align-items:center;margin:.3rem .8rem 0;padding:.55rem .8rem;border-radius:.8rem;background:var(--att);color:#fff;font-weight:700;font-size:.9rem}
+.remind.on{display:flex}.remind span{flex:1}
+.remind button{all:unset;cursor:pointer;padding:.3rem .8rem;border-radius:.6rem;background:#fff;color:var(--att);font-size:.8rem}
+body.setup .sticky,body.setup .bar,body.setup .grid,body.setup .ctl{display:none}
+body.setup{padding-bottom:1rem}
+.setupw{max-width:46rem;margin:.6rem auto 0;padding:0 .8rem}
+.card{background:#fff;border-radius:1.2rem;padding:1rem 1.1rem;box-shadow:inset 0 0 0 2px var(--line);margin-bottom:.9rem}
+.card h2{margin:0 0 .3rem;font-size:1.15rem}.card p,.pan p{margin:.3rem 0;color:var(--ink2);font-size:.9rem;line-height:1.7}
+textarea{width:100%;font:600 1rem/1.7 var(--font);padding:.7rem .8rem;border-radius:.8rem;border:2px solid var(--line);direction:rtl;resize:vertical;margin-top:.4rem}
+textarea:focus{outline:3px solid #E0A21A;border-color:var(--ink)}
+.inl{display:flex;gap:.5rem;align-items:center;margin:.45rem 0;flex-wrap:wrap}
+.inl input[type=text]{flex:1;min-width:9rem;width:auto}
+.card input[type=text],.inl input[type=time]{font:600 1rem var(--font);padding:.6rem .7rem;border-radius:.8rem;border:2px solid var(--line)}
+.fld{display:block;margin:.5rem 0;font-size:.82rem;font-weight:600;color:var(--ink2)}.fld input{margin-top:.25rem}
+.alert{color:var(--warn) !important;font-weight:700}
+.pv{margin:.4rem 0 .2rem;padding:0 1.4rem 0 0;columns:2;column-gap:1.4rem;font-size:.9rem}
+.pv li{break-inside:avoid;padding:.15rem 0}.pv small{display:block;color:var(--ink2);font-size:.74rem}
+.chip.big{min-height:3.2rem;padding:0 1.2rem;font-size:1.05rem}
+.chip.miss{background:var(--tool);color:#fff;box-shadow:none}
+.menu{display:grid;gap:.6rem;margin-top:.8rem}.menu .act{justify-content:flex-start;min-height:3.4rem;font-size:1rem}
+p.empty{grid-column:1/-1;color:var(--ink2);font-weight:600;padding:1rem 0}
+.ros{display:grid;grid-template-columns:minmax(8rem,1fr) minmax(10rem,2fr) auto;gap:.4rem;align-items:center;margin:.3rem 0}
+.ros input{min-width:0}
+.tt .h small{font-weight:600;font-size:.66rem}
+body.board .more,body.board .priv{display:none}
+@media (max-width:700px){.save span{display:none}.priv{display:none}.pv{columns:1}.ros{grid-template-columns:1fr 1fr}.ros .del{grid-column:1/-1;justify-self:start}}
+@media (min-width:900px){
+  /* board on the projector: the whole class fits one screen; rows share the free height */
+  body.board{min-height:100vh;display:flex;flex-direction:column;padding-bottom:3.5rem}
+  body.board header{padding:.45rem .8rem .1rem}
+  body.board .slot{min-height:2.8rem}body.board .slot b{font-size:1.3rem}
+  body.board .sticky{padding:.35rem .8rem .4rem}
+  body.board .modes{max-width:none}
+  body.board .mode{min-height:2.8rem;flex-direction:row;gap:.5rem;font-size:1rem}
+  body.board .sub{margin-top:.35rem;min-height:2.2rem}
+  body.board .ctl{padding-top:.35rem}
+  body.board .grid{flex:1;grid-template-columns:repeat(var(--cols,6),1fr);grid-auto-rows:1fr;gap:.5rem;padding:.5rem .8rem}
+  body.board .st{min-height:4.2rem;padding:.4rem .65rem;gap:.2rem}
+  body.board .st .nm{font-size:1.3rem;line-height:1.3;padding-inline-end:0;flex:0 0 auto}
+  body.board .st .bd{margin-top:auto}
+  body.board .b{font-size:.88rem;height:1.55rem;padding:0 .45rem}body.board .b svg{width:1rem;height:1rem}
+  body.board .bar{padding:.4rem .8rem}body.board .act{min-height:2.6rem}
+  body:not(.board) .grid{grid-template-columns:repeat(7,1fr)}
+}
+}
+
+</style>
+</head>
+<body>
+<header id="hd"></header>
+<button class="perm" id="perm" data-regrant hidden></button>
+<div class="remind" id="remind" role="status"></div>
+<div id="setup"></div>
+<div class="sticky"><div class="modes" id="modes"></div><div class="sub" id="sub"></div></div>
+<div class="ctl" id="ctl"></div>
+<div class="grid" id="grid"></div>
+<div class="bar"><button class="act undo" id="undo" disabled></button><span id="barx"></span></div>
+<div class="toast" id="toast" role="status"></div>
+<div class="sheet" id="sheet"><div class="pan" id="pan"></div></div>
+<script>
+/* QR code generator: "QRCode for JavaScript" (c) 2009 Kazuhiko Arase, MIT licence (http://www.opensource.org/licenses/mit-license.php). Bundled unchanged; QR Code is a registered trademark of DENSO WAVE INCORPORATED. */
+var QRGEN=(function(){var M={},C={};function require(n){n=n.replace("./","");if(!C[n]){var m={exports:{}};M[n](m,require);C[n]=m.exports;}return C[n];}
+M["QRMode"]=function(module,require){
+module.exports = {
+    MODE_NUMBER :       1 << 0,
+    MODE_ALPHA_NUM :    1 << 1,
+    MODE_8BIT_BYTE :    1 << 2,
+    MODE_KANJI :        1 << 3
+};
+
+};
+M["QRErrorCorrectLevel"]=function(module,require){
+module.exports = {
+	L : 1,
+	M : 0,
+	Q : 3,
+	H : 2
+};
+
+
+};
+M["QRMaskPattern"]=function(module,require){
+module.exports = {
+	PATTERN000 : 0,
+	PATTERN001 : 1,
+	PATTERN010 : 2,
+	PATTERN011 : 3,
+	PATTERN100 : 4,
+	PATTERN101 : 5,
+	PATTERN110 : 6,
+	PATTERN111 : 7
+};
+
+};
+M["QRMath"]=function(module,require){
+var QRMath = {
+
+	glog : function(n) {
+	
+		if (n < 1) {
+			throw new Error("glog(" + n + ")");
+		}
+		
+		return QRMath.LOG_TABLE[n];
+	},
+	
+	gexp : function(n) {
+	
+		while (n < 0) {
+			n += 255;
+		}
+	
+		while (n >= 256) {
+			n -= 255;
+		}
+	
+		return QRMath.EXP_TABLE[n];
+	},
+	
+	EXP_TABLE : new Array(256),
+	
+	LOG_TABLE : new Array(256)
+
+};
+	
+for (var i = 0; i < 8; i++) {
+	QRMath.EXP_TABLE[i] = 1 << i;
+}
+for (var i = 8; i < 256; i++) {
+	QRMath.EXP_TABLE[i] = QRMath.EXP_TABLE[i - 4]
+		^ QRMath.EXP_TABLE[i - 5]
+		^ QRMath.EXP_TABLE[i - 6]
+		^ QRMath.EXP_TABLE[i - 8];
+}
+for (var i = 0; i < 255; i++) {
+	QRMath.LOG_TABLE[QRMath.EXP_TABLE[i] ] = i;
+}
+
+module.exports = QRMath;
+
+};
+M["QRBitBuffer"]=function(module,require){
+function QRBitBuffer() {
+	this.buffer = [];
+	this.length = 0;
+}
+
+QRBitBuffer.prototype = {
+
+	get : function(index) {
+		var bufIndex = Math.floor(index / 8);
+		return ( (this.buffer[bufIndex] >>> (7 - index % 8) ) & 1) == 1;
+	},
+	
+	put : function(num, length) {
+		for (var i = 0; i < length; i++) {
+			this.putBit( ( (num >>> (length - i - 1) ) & 1) == 1);
+		}
+	},
+	
+	getLengthInBits : function() {
+		return this.length;
+	},
+	
+	putBit : function(bit) {
+	
+		var bufIndex = Math.floor(this.length / 8);
+		if (this.buffer.length <= bufIndex) {
+			this.buffer.push(0);
+		}
+	
+		if (bit) {
+			this.buffer[bufIndex] |= (0x80 >>> (this.length % 8) );
+		}
+	
+		this.length++;
+	}
+};
+
+module.exports = QRBitBuffer;
+
+};
+M["QR8bitByte"]=function(module,require){
+var QRMode = require('./QRMode');
+
+function QR8bitByte(data) {
+	this.mode = QRMode.MODE_8BIT_BYTE;
+	this.data = data;
+}
+
+QR8bitByte.prototype = {
+
+	getLength : function() {
+		return this.data.length;
+	},
+	
+	write : function(buffer) {
+		for (var i = 0; i < this.data.length; i++) {
+			// not JIS ...
+			buffer.put(this.data.charCodeAt(i), 8);
+		}
+	}
+};
+
+module.exports = QR8bitByte;
+
+};
+M["QRPolynomial"]=function(module,require){
+var QRMath = require('./QRMath');
+
+function QRPolynomial(num, shift) {
+	if (num.length === undefined) {
+		throw new Error(num.length + "/" + shift);
+	}
+
+	var offset = 0;
+
+	while (offset < num.length && num[offset] === 0) {
+		offset++;
+	}
+
+	this.num = new Array(num.length - offset + shift);
+	for (var i = 0; i < num.length - offset; i++) {
+		this.num[i] = num[i + offset];
+	}
+}
+
+QRPolynomial.prototype = {
+
+	get : function(index) {
+		return this.num[index];
+	},
+	
+	getLength : function() {
+		return this.num.length;
+	},
+	
+	multiply : function(e) {
+	
+		var num = new Array(this.getLength() + e.getLength() - 1);
+	
+		for (var i = 0; i < this.getLength(); i++) {
+			for (var j = 0; j < e.getLength(); j++) {
+				num[i + j] ^= QRMath.gexp(QRMath.glog(this.get(i) ) + QRMath.glog(e.get(j) ) );
+			}
+		}
+	
+		return new QRPolynomial(num, 0);
+	},
+	
+	mod : function(e) {
+	
+		if (this.getLength() - e.getLength() < 0) {
+			return this;
+		}
+	
+		var ratio = QRMath.glog(this.get(0) ) - QRMath.glog(e.get(0) );
+	
+		var num = new Array(this.getLength() );
+		
+		for (var i = 0; i < this.getLength(); i++) {
+			num[i] = this.get(i);
+		}
+		
+		for (var x = 0; x < e.getLength(); x++) {
+			num[x] ^= QRMath.gexp(QRMath.glog(e.get(x) ) + ratio);
+		}
+	
+		// recursive call
+		return new QRPolynomial(num, 0).mod(e);
+	}
+};
+
+module.exports = QRPolynomial;
+
+};
+M["QRRSBlock"]=function(module,require){
+var QRErrorCorrectLevel = require('./QRErrorCorrectLevel');
+
+function QRRSBlock(totalCount, dataCount) {
+	this.totalCount = totalCount;
+	this.dataCount  = dataCount;
+}
+
+QRRSBlock.RS_BLOCK_TABLE = [
+
+	// L
+	// M
+	// Q
+	// H
+
+	// 1
+	[1, 26, 19],
+	[1, 26, 16],
+	[1, 26, 13],
+	[1, 26, 9],
+	
+	// 2
+	[1, 44, 34],
+	[1, 44, 28],
+	[1, 44, 22],
+	[1, 44, 16],
+
+	// 3
+	[1, 70, 55],
+	[1, 70, 44],
+	[2, 35, 17],
+	[2, 35, 13],
+
+	// 4		
+	[1, 100, 80],
+	[2, 50, 32],
+	[2, 50, 24],
+	[4, 25, 9],
+	
+	// 5
+	[1, 134, 108],
+	[2, 67, 43],
+	[2, 33, 15, 2, 34, 16],
+	[2, 33, 11, 2, 34, 12],
+	
+	// 6
+	[2, 86, 68],
+	[4, 43, 27],
+	[4, 43, 19],
+	[4, 43, 15],
+	
+	// 7		
+	[2, 98, 78],
+	[4, 49, 31],
+	[2, 32, 14, 4, 33, 15],
+	[4, 39, 13, 1, 40, 14],
+	
+	// 8
+	[2, 121, 97],
+	[2, 60, 38, 2, 61, 39],
+	[4, 40, 18, 2, 41, 19],
+	[4, 40, 14, 2, 41, 15],
+	
+	// 9
+	[2, 146, 116],
+	[3, 58, 36, 2, 59, 37],
+	[4, 36, 16, 4, 37, 17],
+	[4, 36, 12, 4, 37, 13],
+	
+	// 10		
+	[2, 86, 68, 2, 87, 69],
+	[4, 69, 43, 1, 70, 44],
+	[6, 43, 19, 2, 44, 20],
+	[6, 43, 15, 2, 44, 16],
+
+	// 11
+	[4, 101, 81],
+	[1, 80, 50, 4, 81, 51],
+	[4, 50, 22, 4, 51, 23],
+	[3, 36, 12, 8, 37, 13],
+
+	// 12
+	[2, 116, 92, 2, 117, 93],
+	[6, 58, 36, 2, 59, 37],
+	[4, 46, 20, 6, 47, 21],
+	[7, 42, 14, 4, 43, 15],
+
+	// 13
+	[4, 133, 107],
+	[8, 59, 37, 1, 60, 38],
+	[8, 44, 20, 4, 45, 21],
+	[12, 33, 11, 4, 34, 12],
+
+	// 14
+	[3, 145, 115, 1, 146, 116],
+	[4, 64, 40, 5, 65, 41],
+	[11, 36, 16, 5, 37, 17],
+	[11, 36, 12, 5, 37, 13],
+
+	// 15
+	[5, 109, 87, 1, 110, 88],
+	[5, 65, 41, 5, 66, 42],
+	[5, 54, 24, 7, 55, 25],
+	[11, 36, 12],
+
+	// 16
+	[5, 122, 98, 1, 123, 99],
+	[7, 73, 45, 3, 74, 46],
+	[15, 43, 19, 2, 44, 20],
+	[3, 45, 15, 13, 46, 16],
+
+	// 17
+	[1, 135, 107, 5, 136, 108],
+	[10, 74, 46, 1, 75, 47],
+	[1, 50, 22, 15, 51, 23],
+	[2, 42, 14, 17, 43, 15],
+
+	// 18
+	[5, 150, 120, 1, 151, 121],
+	[9, 69, 43, 4, 70, 44],
+	[17, 50, 22, 1, 51, 23],
+	[2, 42, 14, 19, 43, 15],
+
+	// 19
+	[3, 141, 113, 4, 142, 114],
+	[3, 70, 44, 11, 71, 45],
+	[17, 47, 21, 4, 48, 22],
+	[9, 39, 13, 16, 40, 14],
+
+	// 20
+	[3, 135, 107, 5, 136, 108],
+	[3, 67, 41, 13, 68, 42],
+	[15, 54, 24, 5, 55, 25],
+	[15, 43, 15, 10, 44, 16],
+
+	// 21
+	[4, 144, 116, 4, 145, 117],
+	[17, 68, 42],
+	[17, 50, 22, 6, 51, 23],
+	[19, 46, 16, 6, 47, 17],
+
+	// 22
+	[2, 139, 111, 7, 140, 112],
+	[17, 74, 46],
+	[7, 54, 24, 16, 55, 25],
+	[34, 37, 13],
+
+	// 23
+	[4, 151, 121, 5, 152, 122],
+	[4, 75, 47, 14, 76, 48],
+	[11, 54, 24, 14, 55, 25],
+	[16, 45, 15, 14, 46, 16],
+
+	// 24
+	[6, 147, 117, 4, 148, 118],
+	[6, 73, 45, 14, 74, 46],
+	[11, 54, 24, 16, 55, 25],
+	[30, 46, 16, 2, 47, 17],
+
+	// 25
+	[8, 132, 106, 4, 133, 107],
+	[8, 75, 47, 13, 76, 48],
+	[7, 54, 24, 22, 55, 25],
+	[22, 45, 15, 13, 46, 16],
+
+	// 26
+	[10, 142, 114, 2, 143, 115],
+	[19, 74, 46, 4, 75, 47],
+	[28, 50, 22, 6, 51, 23],
+	[33, 46, 16, 4, 47, 17],
+
+	// 27
+	[8, 152, 122, 4, 153, 123],
+	[22, 73, 45, 3, 74, 46],
+	[8, 53, 23, 26, 54, 24],
+	[12, 45, 15, 28, 46, 16],
+
+	// 28
+	[3, 147, 117, 10, 148, 118],
+	[3, 73, 45, 23, 74, 46],
+	[4, 54, 24, 31, 55, 25],
+	[11, 45, 15, 31, 46, 16],
+
+	// 29
+	[7, 146, 116, 7, 147, 117],
+	[21, 73, 45, 7, 74, 46],
+	[1, 53, 23, 37, 54, 24],
+	[19, 45, 15, 26, 46, 16],
+
+	// 30
+	[5, 145, 115, 10, 146, 116],
+	[19, 75, 47, 10, 76, 48],
+	[15, 54, 24, 25, 55, 25],
+	[23, 45, 15, 25, 46, 16],
+
+	// 31
+	[13, 145, 115, 3, 146, 116],
+	[2, 74, 46, 29, 75, 47],
+	[42, 54, 24, 1, 55, 25],
+	[23, 45, 15, 28, 46, 16],
+
+	// 32
+	[17, 145, 115],
+	[10, 74, 46, 23, 75, 47],
+	[10, 54, 24, 35, 55, 25],
+	[19, 45, 15, 35, 46, 16],
+
+	// 33
+	[17, 145, 115, 1, 146, 116],
+	[14, 74, 46, 21, 75, 47],
+	[29, 54, 24, 19, 55, 25],
+	[11, 45, 15, 46, 46, 16],
+
+	// 34
+	[13, 145, 115, 6, 146, 116],
+	[14, 74, 46, 23, 75, 47],
+	[44, 54, 24, 7, 55, 25],
+	[59, 46, 16, 1, 47, 17],
+
+	// 35
+	[12, 151, 121, 7, 152, 122],
+	[12, 75, 47, 26, 76, 48],
+	[39, 54, 24, 14, 55, 25],
+	[22, 45, 15, 41, 46, 16],
+
+	// 36
+	[6, 151, 121, 14, 152, 122],
+	[6, 75, 47, 34, 76, 48],
+	[46, 54, 24, 10, 55, 25],
+	[2, 45, 15, 64, 46, 16],
+
+	// 37
+	[17, 152, 122, 4, 153, 123],
+	[29, 74, 46, 14, 75, 47],
+	[49, 54, 24, 10, 55, 25],
+	[24, 45, 15, 46, 46, 16],
+
+	// 38
+	[4, 152, 122, 18, 153, 123],
+	[13, 74, 46, 32, 75, 47],
+	[48, 54, 24, 14, 55, 25],
+	[42, 45, 15, 32, 46, 16],
+
+	// 39
+	[20, 147, 117, 4, 148, 118],
+	[40, 75, 47, 7, 76, 48],
+	[43, 54, 24, 22, 55, 25],
+	[10, 45, 15, 67, 46, 16],
+
+	// 40
+	[19, 148, 118, 6, 149, 119],
+	[18, 75, 47, 31, 76, 48],
+	[34, 54, 24, 34, 55, 25],
+	[20, 45, 15, 61, 46, 16]
+];
+
+QRRSBlock.getRSBlocks = function(typeNumber, errorCorrectLevel) {
+	
+	var rsBlock = QRRSBlock.getRsBlockTable(typeNumber, errorCorrectLevel);
+	
+	if (rsBlock === undefined) {
+		throw new Error("bad rs block @ typeNumber:" + typeNumber + "/errorCorrectLevel:" + errorCorrectLevel);
+	}
+
+	var length = rsBlock.length / 3;
+	
+	var list = [];
+	
+	for (var i = 0; i < length; i++) {
+
+		var count = rsBlock[i * 3 + 0];
+		var totalCount = rsBlock[i * 3 + 1];
+		var dataCount  = rsBlock[i * 3 + 2];
+
+		for (var j = 0; j < count; j++) {
+			list.push(new QRRSBlock(totalCount, dataCount) );	
+		}
+	}
+	
+	return list;
+};
+
+QRRSBlock.getRsBlockTable = function(typeNumber, errorCorrectLevel) {
+
+	switch(errorCorrectLevel) {
+	case QRErrorCorrectLevel.L :
+		return QRRSBlock.RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 0];
+	case QRErrorCorrectLevel.M :
+		return QRRSBlock.RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 1];
+	case QRErrorCorrectLevel.Q :
+		return QRRSBlock.RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 2];
+	case QRErrorCorrectLevel.H :
+		return QRRSBlock.RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 3];
+	default :
+		return undefined;
+	}
+};
+
+module.exports = QRRSBlock;
+
+};
+M["QRUtil"]=function(module,require){
+var QRMode = require('./QRMode');
+var QRPolynomial = require('./QRPolynomial');
+var QRMath = require('./QRMath');
+var QRMaskPattern = require('./QRMaskPattern');
+
+var QRUtil = {
+
+    PATTERN_POSITION_TABLE : [
+        [],
+        [6, 18],
+        [6, 22],
+        [6, 26],
+        [6, 30],
+        [6, 34],
+        [6, 22, 38],
+        [6, 24, 42],
+        [6, 26, 46],
+        [6, 28, 50],
+        [6, 30, 54],        
+        [6, 32, 58],
+        [6, 34, 62],
+        [6, 26, 46, 66],
+        [6, 26, 48, 70],
+        [6, 26, 50, 74],
+        [6, 30, 54, 78],
+        [6, 30, 56, 82],
+        [6, 30, 58, 86],
+        [6, 34, 62, 90],
+        [6, 28, 50, 72, 94],
+        [6, 26, 50, 74, 98],
+        [6, 30, 54, 78, 102],
+        [6, 28, 54, 80, 106],
+        [6, 32, 58, 84, 110],
+        [6, 30, 58, 86, 114],
+        [6, 34, 62, 90, 118],
+        [6, 26, 50, 74, 98, 122],
+        [6, 30, 54, 78, 102, 126],
+        [6, 26, 52, 78, 104, 130],
+        [6, 30, 56, 82, 108, 134],
+        [6, 34, 60, 86, 112, 138],
+        [6, 30, 58, 86, 114, 142],
+        [6, 34, 62, 90, 118, 146],
+        [6, 30, 54, 78, 102, 126, 150],
+        [6, 24, 50, 76, 102, 128, 154],
+        [6, 28, 54, 80, 106, 132, 158],
+        [6, 32, 58, 84, 110, 136, 162],
+        [6, 26, 54, 82, 110, 138, 166],
+        [6, 30, 58, 86, 114, 142, 170]
+    ],
+
+    G15 : (1 << 10) | (1 << 8) | (1 << 5) | (1 << 4) | (1 << 2) | (1 << 1) | (1 << 0),
+    G18 : (1 << 12) | (1 << 11) | (1 << 10) | (1 << 9) | (1 << 8) | (1 << 5) | (1 << 2) | (1 << 0),
+    G15_MASK : (1 << 14) | (1 << 12) | (1 << 10)    | (1 << 4) | (1 << 1),
+
+    getBCHTypeInfo : function(data) {
+        var d = data << 10;
+        while (QRUtil.getBCHDigit(d) - QRUtil.getBCHDigit(QRUtil.G15) >= 0) {
+            d ^= (QRUtil.G15 << (QRUtil.getBCHDigit(d) - QRUtil.getBCHDigit(QRUtil.G15) ) );    
+        }
+        return ( (data << 10) | d) ^ QRUtil.G15_MASK;
+    },
+
+    getBCHTypeNumber : function(data) {
+        var d = data << 12;
+        while (QRUtil.getBCHDigit(d) - QRUtil.getBCHDigit(QRUtil.G18) >= 0) {
+            d ^= (QRUtil.G18 << (QRUtil.getBCHDigit(d) - QRUtil.getBCHDigit(QRUtil.G18) ) );    
+        }
+        return (data << 12) | d;
+    },
+
+    getBCHDigit : function(data) {
+
+        var digit = 0;
+
+        while (data !== 0) {
+            digit++;
+            data >>>= 1;
+        }
+
+        return digit;
+    },
+
+    getPatternPosition : function(typeNumber) {
+        return QRUtil.PATTERN_POSITION_TABLE[typeNumber - 1];
+    },
+
+    getMask : function(maskPattern, i, j) {
+        
+        switch (maskPattern) {
+            
+        case QRMaskPattern.PATTERN000 : return (i + j) % 2 === 0;
+        case QRMaskPattern.PATTERN001 : return i % 2 === 0;
+        case QRMaskPattern.PATTERN010 : return j % 3 === 0;
+        case QRMaskPattern.PATTERN011 : return (i + j) % 3 === 0;
+        case QRMaskPattern.PATTERN100 : return (Math.floor(i / 2) + Math.floor(j / 3) ) % 2 === 0;
+        case QRMaskPattern.PATTERN101 : return (i * j) % 2 + (i * j) % 3 === 0;
+        case QRMaskPattern.PATTERN110 : return ( (i * j) % 2 + (i * j) % 3) % 2 === 0;
+        case QRMaskPattern.PATTERN111 : return ( (i * j) % 3 + (i + j) % 2) % 2 === 0;
+
+        default :
+            throw new Error("bad maskPattern:" + maskPattern);
+        }
+    },
+
+    getErrorCorrectPolynomial : function(errorCorrectLength) {
+
+        var a = new QRPolynomial([1], 0);
+
+        for (var i = 0; i < errorCorrectLength; i++) {
+            a = a.multiply(new QRPolynomial([1, QRMath.gexp(i)], 0) );
+        }
+
+        return a;
+    },
+
+    getLengthInBits : function(mode, type) {
+
+        if (1 <= type && type < 10) {
+
+            // 1 - 9
+
+            switch(mode) {
+            case QRMode.MODE_NUMBER     : return 10;
+            case QRMode.MODE_ALPHA_NUM  : return 9;
+            case QRMode.MODE_8BIT_BYTE  : return 8;
+            case QRMode.MODE_KANJI      : return 8;
+            default :
+                throw new Error("mode:" + mode);
+            }
+
+        } else if (type < 27) {
+
+            // 10 - 26
+
+            switch(mode) {
+            case QRMode.MODE_NUMBER     : return 12;
+            case QRMode.MODE_ALPHA_NUM  : return 11;
+            case QRMode.MODE_8BIT_BYTE  : return 16;
+            case QRMode.MODE_KANJI      : return 10;
+            default :
+                throw new Error("mode:" + mode);
+            }
+
+        } else if (type < 41) {
+
+            // 27 - 40
+
+            switch(mode) {
+            case QRMode.MODE_NUMBER     : return 14;
+            case QRMode.MODE_ALPHA_NUM  : return 13;
+            case QRMode.MODE_8BIT_BYTE  : return 16;
+            case QRMode.MODE_KANJI      : return 12;
+            default :
+                throw new Error("mode:" + mode);
+            }
+
+        } else {
+            throw new Error("type:" + type);
+        }
+    },
+
+    getLostPoint : function(qrCode) {
+        
+        var moduleCount = qrCode.getModuleCount();
+        var lostPoint = 0;
+        var row = 0; 
+        var col = 0;
+
+        
+        // LEVEL1
+        
+        for (row = 0; row < moduleCount; row++) {
+
+            for (col = 0; col < moduleCount; col++) {
+
+                var sameCount = 0;
+                var dark = qrCode.isDark(row, col);
+
+                for (var r = -1; r <= 1; r++) {
+
+                    if (row + r < 0 || moduleCount <= row + r) {
+                        continue;
+                    }
+
+                    for (var c = -1; c <= 1; c++) {
+
+                        if (col + c < 0 || moduleCount <= col + c) {
+                            continue;
+                        }
+
+                        if (r === 0 && c === 0) {
+                            continue;
+                        }
+
+                        if (dark === qrCode.isDark(row + r, col + c) ) {
+                            sameCount++;
+                        }
+                    }
+                }
+
+                if (sameCount > 5) {
+                    lostPoint += (3 + sameCount - 5);
+                }
+            }
+        }
+
+        // LEVEL2
+
+        for (row = 0; row < moduleCount - 1; row++) {
+            for (col = 0; col < moduleCount - 1; col++) {
+                var count = 0;
+                if (qrCode.isDark(row,     col    ) ) count++;
+                if (qrCode.isDark(row + 1, col    ) ) count++;
+                if (qrCode.isDark(row,     col + 1) ) count++;
+                if (qrCode.isDark(row + 1, col + 1) ) count++;
+                if (count === 0 || count === 4) {
+                    lostPoint += 3;
+                }
+            }
+        }
+
+        // LEVEL3
+
+        for (row = 0; row < moduleCount; row++) {
+            for (col = 0; col < moduleCount - 6; col++) {
+                if (qrCode.isDark(row, col) && 
+                        !qrCode.isDark(row, col + 1) && 
+                         qrCode.isDark(row, col + 2) && 
+                         qrCode.isDark(row, col + 3) && 
+                         qrCode.isDark(row, col + 4) && 
+                        !qrCode.isDark(row, col + 5) && 
+                         qrCode.isDark(row, col + 6) ) {
+                    lostPoint += 40;
+                }
+            }
+        }
+
+        for (col = 0; col < moduleCount; col++) {
+            for (row = 0; row < moduleCount - 6; row++) {
+                if (qrCode.isDark(row, col) &&
+                        !qrCode.isDark(row + 1, col) &&
+                         qrCode.isDark(row + 2, col) &&
+                         qrCode.isDark(row + 3, col) &&
+                         qrCode.isDark(row + 4, col) &&
+                        !qrCode.isDark(row + 5, col) &&
+                         qrCode.isDark(row + 6, col) ) {
+                    lostPoint += 40;
+                }
+            }
+        }
+
+        // LEVEL4
+        
+        var darkCount = 0;
+
+        for (col = 0; col < moduleCount; col++) {
+            for (row = 0; row < moduleCount; row++) {
+                if (qrCode.isDark(row, col) ) {
+                    darkCount++;
+                }
+            }
+        }
+        
+        var ratio = Math.abs(100 * darkCount / moduleCount / moduleCount - 50) / 5;
+        lostPoint += ratio * 10;
+
+        return lostPoint;       
+    }
+
+};
+
+module.exports = QRUtil;
+
+};
+M["index"]=function(module,require){
+//---------------------------------------------------------------------
+// QRCode for JavaScript
+//
+// Copyright (c) 2009 Kazuhiko Arase
+//
+// URL: http://www.d-project.com/
+//
+// Licensed under the MIT license:
+//   http://www.opensource.org/licenses/mit-license.php
+//
+// The word "QR Code" is registered trademark of 
+// DENSO WAVE INCORPORATED
+//   http://www.denso-wave.com/qrcode/faqpatent-e.html
+//
+//---------------------------------------------------------------------
+// Modified to work in node for this project (and some refactoring)
+//---------------------------------------------------------------------
+
+var QR8bitByte = require('./QR8bitByte');
+var QRUtil = require('./QRUtil');
+var QRPolynomial = require('./QRPolynomial');
+var QRRSBlock = require('./QRRSBlock');
+var QRBitBuffer = require('./QRBitBuffer');
+
+function QRCode(typeNumber, errorCorrectLevel) {
+	this.typeNumber = typeNumber;
+	this.errorCorrectLevel = errorCorrectLevel;
+	this.modules = null;
+	this.moduleCount = 0;
+	this.dataCache = null;
+	this.dataList = [];
+}
+
+QRCode.prototype = {
+	
+	addData : function(data) {
+		var newData = new QR8bitByte(data);
+		this.dataList.push(newData);
+		this.dataCache = null;
+	},
+	
+	isDark : function(row, col) {
+		if (row < 0 || this.moduleCount <= row || col < 0 || this.moduleCount <= col) {
+			throw new Error(row + "," + col);
+		}
+		return this.modules[row][col];
+	},
+
+	getModuleCount : function() {
+		return this.moduleCount;
+	},
+	
+	make : function() {
+		// Calculate automatically typeNumber if provided is < 1
+		if (this.typeNumber < 1 ){
+			var typeNumber = 1;
+			for (typeNumber = 1; typeNumber < 40; typeNumber++) {
+				var rsBlocks = QRRSBlock.getRSBlocks(typeNumber, this.errorCorrectLevel);
+
+				var buffer = new QRBitBuffer();
+				var totalDataCount = 0;
+				for (var i = 0; i < rsBlocks.length; i++) {
+					totalDataCount += rsBlocks[i].dataCount;
+				}
+
+				for (var x = 0; x < this.dataList.length; x++) {
+					var data = this.dataList[x];
+					buffer.put(data.mode, 4);
+					buffer.put(data.getLength(), QRUtil.getLengthInBits(data.mode, typeNumber) );
+					data.write(buffer);
+				}
+				if (buffer.getLengthInBits() <= totalDataCount * 8)
+					break;
+			}
+			this.typeNumber = typeNumber;
+		}
+		this.makeImpl(false, this.getBestMaskPattern() );
+	},
+	
+	makeImpl : function(test, maskPattern) {
+		
+		this.moduleCount = this.typeNumber * 4 + 17;
+		this.modules = new Array(this.moduleCount);
+		
+		for (var row = 0; row < this.moduleCount; row++) {
+			
+			this.modules[row] = new Array(this.moduleCount);
+			
+			for (var col = 0; col < this.moduleCount; col++) {
+				this.modules[row][col] = null;//(col + row) % 3;
+			}
+		}
+	
+		this.setupPositionProbePattern(0, 0);
+		this.setupPositionProbePattern(this.moduleCount - 7, 0);
+		this.setupPositionProbePattern(0, this.moduleCount - 7);
+		this.setupPositionAdjustPattern();
+		this.setupTimingPattern();
+		this.setupTypeInfo(test, maskPattern);
+		
+		if (this.typeNumber >= 7) {
+			this.setupTypeNumber(test);
+		}
+	
+		if (this.dataCache === null) {
+			this.dataCache = QRCode.createData(this.typeNumber, this.errorCorrectLevel, this.dataList);
+		}
+	
+		this.mapData(this.dataCache, maskPattern);
+	},
+
+	setupPositionProbePattern : function(row, col)  {
+		
+		for (var r = -1; r <= 7; r++) {
+			
+			if (row + r <= -1 || this.moduleCount <= row + r) continue;
+			
+			for (var c = -1; c <= 7; c++) {
+				
+				if (col + c <= -1 || this.moduleCount <= col + c) continue;
+				
+				if ( (0 <= r && r <= 6 && (c === 0 || c === 6) ) || 
+                     (0 <= c && c <= 6 && (r === 0 || r === 6) ) || 
+                     (2 <= r && r <= 4 && 2 <= c && c <= 4) ) {
+					this.modules[row + r][col + c] = true;
+				} else {
+					this.modules[row + r][col + c] = false;
+				}
+			}		
+		}		
+	},
+	
+	getBestMaskPattern : function() {
+	
+		var minLostPoint = 0;
+		var pattern = 0;
+	
+		for (var i = 0; i < 8; i++) {
+			
+			this.makeImpl(true, i);
+	
+			var lostPoint = QRUtil.getLostPoint(this);
+	
+			if (i === 0 || minLostPoint >  lostPoint) {
+				minLostPoint = lostPoint;
+				pattern = i;
+			}
+		}
+	
+		return pattern;
+	},
+	
+	createMovieClip : function(target_mc, instance_name, depth) {
+	
+		var qr_mc = target_mc.createEmptyMovieClip(instance_name, depth);
+		var cs = 1;
+	
+		this.make();
+
+		for (var row = 0; row < this.modules.length; row++) {
+			
+			var y = row * cs;
+			
+			for (var col = 0; col < this.modules[row].length; col++) {
+	
+				var x = col * cs;
+				var dark = this.modules[row][col];
+			
+				if (dark) {
+					qr_mc.beginFill(0, 100);
+					qr_mc.moveTo(x, y);
+					qr_mc.lineTo(x + cs, y);
+					qr_mc.lineTo(x + cs, y + cs);
+					qr_mc.lineTo(x, y + cs);
+					qr_mc.endFill();
+				}
+			}
+		}
+		
+		return qr_mc;
+	},
+
+	setupTimingPattern : function() {
+		
+		for (var r = 8; r < this.moduleCount - 8; r++) {
+			if (this.modules[r][6] !== null) {
+				continue;
+			}
+			this.modules[r][6] = (r % 2 === 0);
+		}
+	
+		for (var c = 8; c < this.moduleCount - 8; c++) {
+			if (this.modules[6][c] !== null) {
+				continue;
+			}
+			this.modules[6][c] = (c % 2 === 0);
+		}
+	},
+	
+	setupPositionAdjustPattern : function() {
+	
+		var pos = QRUtil.getPatternPosition(this.typeNumber);
+		
+		for (var i = 0; i < pos.length; i++) {
+		
+			for (var j = 0; j < pos.length; j++) {
+			
+				var row = pos[i];
+				var col = pos[j];
+				
+				if (this.modules[row][col] !== null) {
+					continue;
+				}
+				
+				for (var r = -2; r <= 2; r++) {
+				
+					for (var c = -2; c <= 2; c++) {
+					
+						if (Math.abs(r) === 2 || 
+                            Math.abs(c) === 2 ||
+                            (r === 0 && c === 0) ) {
+							this.modules[row + r][col + c] = true;
+						} else {
+							this.modules[row + r][col + c] = false;
+						}
+					}
+				}
+			}
+		}
+	},
+	
+	setupTypeNumber : function(test) {
+	
+		var bits = QRUtil.getBCHTypeNumber(this.typeNumber);
+        var mod;
+	
+		for (var i = 0; i < 18; i++) {
+			mod = (!test && ( (bits >> i) & 1) === 1);
+			this.modules[Math.floor(i / 3)][i % 3 + this.moduleCount - 8 - 3] = mod;
+		}
+	
+		for (var x = 0; x < 18; x++) {
+			mod = (!test && ( (bits >> x) & 1) === 1);
+			this.modules[x % 3 + this.moduleCount - 8 - 3][Math.floor(x / 3)] = mod;
+		}
+	},
+	
+	setupTypeInfo : function(test, maskPattern) {
+	
+		var data = (this.errorCorrectLevel << 3) | maskPattern;
+		var bits = QRUtil.getBCHTypeInfo(data);
+        var mod;
+	
+		// vertical		
+		for (var v = 0; v < 15; v++) {
+	
+			mod = (!test && ( (bits >> v) & 1) === 1);
+	
+			if (v < 6) {
+				this.modules[v][8] = mod;
+			} else if (v < 8) {
+				this.modules[v + 1][8] = mod;
+			} else {
+				this.modules[this.moduleCount - 15 + v][8] = mod;
+			}
+		}
+	
+		// horizontal
+		for (var h = 0; h < 15; h++) {
+	
+			mod = (!test && ( (bits >> h) & 1) === 1);
+			
+			if (h < 8) {
+				this.modules[8][this.moduleCount - h - 1] = mod;
+			} else if (h < 9) {
+				this.modules[8][15 - h - 1 + 1] = mod;
+			} else {
+				this.modules[8][15 - h - 1] = mod;
+			}
+		}
+	
+		// fixed module
+		this.modules[this.moduleCount - 8][8] = (!test);
+	
+	},
+	
+	mapData : function(data, maskPattern) {
+		
+		var inc = -1;
+		var row = this.moduleCount - 1;
+		var bitIndex = 7;
+		var byteIndex = 0;
+		
+		for (var col = this.moduleCount - 1; col > 0; col -= 2) {
+	
+			if (col === 6) col--;
+	
+			while (true) {
+	
+				for (var c = 0; c < 2; c++) {
+					
+					if (this.modules[row][col - c] === null) {
+						
+						var dark = false;
+	
+						if (byteIndex < data.length) {
+							dark = ( ( (data[byteIndex] >>> bitIndex) & 1) === 1);
+						}
+	
+						var mask = QRUtil.getMask(maskPattern, row, col - c);
+	
+						if (mask) {
+							dark = !dark;
+						}
+						
+						this.modules[row][col - c] = dark;
+						bitIndex--;
+	
+						if (bitIndex === -1) {
+							byteIndex++;
+							bitIndex = 7;
+						}
+					}
+				}
+								
+				row += inc;
+	
+				if (row < 0 || this.moduleCount <= row) {
+					row -= inc;
+					inc = -inc;
+					break;
+				}
+			}
+		}
+		
+	}
+
+};
+
+QRCode.PAD0 = 0xEC;
+QRCode.PAD1 = 0x11;
+
+QRCode.createData = function(typeNumber, errorCorrectLevel, dataList) {
+	
+	var rsBlocks = QRRSBlock.getRSBlocks(typeNumber, errorCorrectLevel);
+	
+	var buffer = new QRBitBuffer();
+	
+	for (var i = 0; i < dataList.length; i++) {
+		var data = dataList[i];
+		buffer.put(data.mode, 4);
+		buffer.put(data.getLength(), QRUtil.getLengthInBits(data.mode, typeNumber) );
+		data.write(buffer);
+	}
+
+	// calc num max data.
+	var totalDataCount = 0;
+	for (var x = 0; x < rsBlocks.length; x++) {
+		totalDataCount += rsBlocks[x].dataCount;
+	}
+
+	if (buffer.getLengthInBits() > totalDataCount * 8) {
+		throw new Error("code length overflow. (" + 
+            buffer.getLengthInBits() + 
+            ">" +  
+            totalDataCount * 8 + 
+            ")");
+	}
+
+	// end code
+	if (buffer.getLengthInBits() + 4 <= totalDataCount * 8) {
+		buffer.put(0, 4);
+	}
+
+	// padding
+	while (buffer.getLengthInBits() % 8 !== 0) {
+		buffer.putBit(false);
+	}
+
+	// padding
+	while (true) {
+		
+		if (buffer.getLengthInBits() >= totalDataCount * 8) {
+			break;
+		}
+		buffer.put(QRCode.PAD0, 8);
+		
+		if (buffer.getLengthInBits() >= totalDataCount * 8) {
+			break;
+		}
+		buffer.put(QRCode.PAD1, 8);
+	}
+
+	return QRCode.createBytes(buffer, rsBlocks);
+};
+
+QRCode.createBytes = function(buffer, rsBlocks) {
+
+	var offset = 0;
+	
+	var maxDcCount = 0;
+	var maxEcCount = 0;
+	
+	var dcdata = new Array(rsBlocks.length);
+	var ecdata = new Array(rsBlocks.length);
+	
+	for (var r = 0; r < rsBlocks.length; r++) {
+
+		var dcCount = rsBlocks[r].dataCount;
+		var ecCount = rsBlocks[r].totalCount - dcCount;
+
+		maxDcCount = Math.max(maxDcCount, dcCount);
+		maxEcCount = Math.max(maxEcCount, ecCount);
+		
+		dcdata[r] = new Array(dcCount);
+		
+		for (var i = 0; i < dcdata[r].length; i++) {
+			dcdata[r][i] = 0xff & buffer.buffer[i + offset];
+		}
+		offset += dcCount;
+		
+		var rsPoly = QRUtil.getErrorCorrectPolynomial(ecCount);
+		var rawPoly = new QRPolynomial(dcdata[r], rsPoly.getLength() - 1);
+
+		var modPoly = rawPoly.mod(rsPoly);
+		ecdata[r] = new Array(rsPoly.getLength() - 1);
+		for (var x = 0; x < ecdata[r].length; x++) {
+            var modIndex = x + modPoly.getLength() - ecdata[r].length;
+			ecdata[r][x] = (modIndex >= 0)? modPoly.get(modIndex) : 0;
+		}
+
+	}
+	
+	var totalCodeCount = 0;
+	for (var y = 0; y < rsBlocks.length; y++) {
+		totalCodeCount += rsBlocks[y].totalCount;
+	}
+
+	var data = new Array(totalCodeCount);
+	var index = 0;
+
+	for (var z = 0; z < maxDcCount; z++) {
+		for (var s = 0; s < rsBlocks.length; s++) {
+			if (z < dcdata[s].length) {
+				data[index++] = dcdata[s][z];
+			}
+		}
+	}
+
+	for (var xx = 0; xx < maxEcCount; xx++) {
+		for (var t = 0; t < rsBlocks.length; t++) {
+			if (xx < ecdata[t].length) {
+				data[index++] = ecdata[t][xx];
+			}
+		}
+	}
+
+	return data;
+
+};
+
+module.exports = QRCode;
+
+};
+var QRCode=require("index"),EC=require("QRErrorCorrectLevel");
+return function(text,level){var b=unescape(encodeURIComponent(text));var q=new QRCode(-1,EC[level||"M"]);q.addData(b);q.make();return q;};})();
+
+</script>
+<script>
+/* Science Teaching Hub – core rules (no DOM). Everything on screen is calculated from data.recs. */
+(function(root,f){if(typeof module==='object'&&module.exports)module.exports=f();else root.HUBCORE=f();})(this,function(){
+'use strict';
+const DAYS=['الأحد','الإثنين','الثلاثاء','الأربعاء','الخميس'];
+const LEVELS=['','إنذار أول','إنذار ثانٍ','مخالفة'];
+const level=n=>Math.min(n,3);
+const pad=n=>String(n).padStart(2,'0');
+const iso=dt=>dt.getFullYear()+'-'+pad(dt.getMonth()+1)+'-'+pad(dt.getDate());
+let seq=0;
+const uid=()=>Date.now().toString(36)+(seq++).toString(36)+Math.random().toString(36).slice(2,6);
+const latin=s=>String(s).replace(/[٠-٩]/g,c=>'٠١٢٣٤٥٦٧٨٩'.indexOf(c)).replace(/[۰-۹]/g,c=>'۰۱۲۳۴۵۶۷۸۹'.indexOf(c));
+const clean=s=>String(s).replace(/[‎‏‪-‮⁦-⁩﻿]/g,'').replace(/\s+/g,' ').trim();
+
+/* ---------- names ---------- */
+const JOIN=['ال','آل','بن','ابن','ابو','أبو','بو','عبد'],TAIL=['الدين','الله'];   // words that belong with their neighbour
+function parts(full){
+  const w=clean(full).split(' ').filter(Boolean);if(w.length<2)return{first:w[0]||'',mid:'',last:''};
+  let f=1;if(w[0]==='عبد'&&w.length>2)f=2;
+  let l=w.length-1;if(l-1>=f&&TAIL.includes(w[l]))l--;if(l-1>=f&&JOIN.includes(w[l-1]))l--;
+  if(l<f)l=f;
+  return{first:w.slice(0,f).join(' '),mid:l>f?w[f]:'',last:w.slice(l).join(' ')};
+}
+function shortName(full){const p=parts(full);return p.last?p.first+' '+p.last:p.first;}
+function displayNames(fulls){
+  const s=fulls.map(shortName),cnt={};s.forEach(x=>cnt[x]=(cnt[x]||0)+1);
+  return fulls.map((f,i)=>{if(cnt[s[i]]<2)return s[i];const p=parts(f);return p.mid?p.first+' '+p.mid+' '+p.last:s[i];});
+}
+const CLS=/^\d{1,2}\s*[-–\/]\s*\d{1,2}$/;
+const normCls=s=>latin(clean(s)).replace(/\s*[–\/-]\s*/,'-');
+const HEAD=['الاسم','اسم الطالب','الطالب','الصف','name','م'];
+/* text pasted from Excel / a .csv file → [{cls,full}]. A line holding only "8-8" sets the class for the lines after it. */
+function parseNames(text,defCls){
+  let cur=defCls||'';const out=[],seen={};
+  String(text).split(/\r?\n/).forEach(line=>{
+    const cells=line.split(/[\t,;،]/).map(clean).filter(Boolean);if(!cells.length)return;
+    let cls=cur,full;
+    if(cells.length===1&&CLS.test(latin(cells[0]))){cur=normCls(cells[0]);return;}
+    if(cells.length>1&&CLS.test(latin(cells[0]))){cls=normCls(cells[0]);full=cells[1];}
+    else full=cells.find(c=>/[؀-ۿA-Za-z]{2}/.test(c))||'';
+    full=clean(latin(full).replace(/^\d+\s*[-.)]*\s*/,'').replace(/^[-.)]+\s*/,''));
+    if(!full||HEAD.includes(full.toLowerCase()))return;
+    const key=cls+'|'+full;if(seen[key])return;seen[key]=1;out.push({cls,full});
+  });
+  return out;
+}
+
+function decode(u8){
+  if(u8[0]===0xFF&&u8[1]===0xFE)return new TextDecoder('utf-16le').decode(u8);
+  if(u8[0]===0xFE&&u8[1]===0xFF)return new TextDecoder('utf-16be').decode(u8);
+  try{return new TextDecoder('utf-8',{fatal:true}).decode(u8);}catch(e){return new TextDecoder('windows-1256').decode(u8);}
+}
+
+/* ---------- data ---------- */
+const TT0=[[1,null,2,null,null,null,0],[0,null,1,null,null,2,null],['S',null,null,null,0,null,2],[null,1,null,null,null,0,null],[null,null,null,1,2,null,null]];
+function defaultTT(ids){return TT0.map(r=>r.map(v=>v==null?null:v==='S'?{x:'مهارات'}:ids[v]?{c:ids[v]}:null));}
+function blank(){return{v:1,saved:0,classes:[],students:[],
+  periods:[['07:10','07:55'],['08:00','08:45'],['08:50','09:35'],['10:00','10:45'],['10:50','11:35'],['11:55','12:40'],['12:45','13:30']],
+  tt:DAYS.map(()=>Array(7).fill(null)),
+  set:{tools:[{id:'b',n:'الكتاب'},{id:'p',n:'القلم'},{id:'w',n:'ورقة العمل'}],pts:[1,2,5,-1],
+    reasons:['كلام متكرر','إزعاج','عدم اتباع التعليمات','عدم إنجاز المهمة'],other:'مهارات',teacher:''},
+  recs:[],del:[],lv:{},seat:{}};}
+
+/* ---------- records → state ---------- */
+function dayState(data,sid,d){
+  const o={att:'P',missing:[],part:0,pts:0,warn:0,notes:[],recs:[]};let at=-1;
+  for(const e of data.recs){if(e.s!==sid||e.d!==d)continue;o.recs.push(e);
+    if(e.k==='att'){if(e.t>=at){at=e.t;o.att=e.v;}}
+    else if(e.k==='tool'){if(!o.missing.includes(e.v))o.missing.push(e.v);}
+    else if(e.k==='part')o.part++;else if(e.k==='pts')o.pts+=e.v;else if(e.k==='warn')o.warn++;else if(e.k==='note')o.notes.push(e.v);}
+  return o;
+}
+const nextAtt=a=>a==='P'?'A':a==='A'?'L':'P';
+function lessonDates(data,cid,upto){const s=new Set();for(const e of data.recs)if(e.c===cid&&(!upto||e.d<=upto))s.add(e.d);return[...s].sort().reverse();}
+/* consecutive lessons of the class (newest first) in which the student was warned; a lesson he missed is skipped */
+function streak(data,sid,cid,upto){
+  const dates=[];for(const d of lessonDates(data,cid,upto)){const o=dayState(data,sid,d);if(o.att==='A')continue;if(o.warn>0)dates.push(d);else break;}
+  return{n:dates.length,dates};
+}
+function followUps(data,cid,upto){
+  return data.students.filter(s=>s.c===cid&&!s.arch).map(s=>Object.assign({sid:s.id},streak(data,s.id,cid,upto))).filter(x=>x.n>=3);
+}
+
+/* ---------- timetable ---------- */
+function at(dt,hm){const[h,m]=hm.split(':').map(Number);return new Date(dt.getFullYear(),dt.getMonth(),dt.getDate(),h,m,0,0);}
+function slots(data,dt){const day=dt.getDay();if(day>4)return[];
+  return data.periods.map((pr,p)=>({day,p,cell:data.tt[day][p],start:at(dt,pr[0]),end:at(dt,pr[1])})).filter(s=>s.cell);}
+/* the lesson in progress, otherwise one that starts within 10 minutes */
+function slotAt(data,dt){const ss=slots(data,dt);
+  return ss.find(s=>dt>=s.start&&dt<s.end)||ss.find(s=>dt<s.start&&s.start-dt<=600000)||null;}
+function nextLesson(data,dt){
+  for(let i=0;i<8;i++){const d=new Date(dt.getFullYear(),dt.getMonth(),dt.getDate()+i,12);
+    const s=slots(data,d).find(x=>x.start>dt);if(s){s.mins=Math.ceil((s.start-dt)/60000);return s;}}
+  return null;
+}
+function periodFor(data,cid,dt){const s=slots(data,dt).filter(x=>x.cell.c===cid);if(!s.length)return null;
+  return(s.find(x=>dt<x.end)||s[s.length-1]).p;}
+function countLessons(data){return data.tt.reduce((n,r)=>n+r.filter(Boolean).length,0);}
+const cellName=(data,cell)=>!cell?'':cell.x?cell.x:((data.classes.find(c=>c.id===cell.c)||{}).name||'');
+
+/* ---------- merge two copies (laptop file / browser copy / backup / phone) ---------- */
+function merge(a,b){
+  const nw=(b.saved||0)>=(a.saved||0)?b:a,od=nw===a?b:a,m=JSON.parse(JSON.stringify(nw));
+  const uni=(k)=>{const ids=new Set(m[k].map(x=>x.id));od[k].forEach(x=>{if(!ids.has(x.id))m[k].push(JSON.parse(JSON.stringify(x)));});};
+  uni('classes');uni('students');uni('recs');
+  m.del=[...new Set([...(nw.del||[]),...(od.del||[])])];const dl=new Set(m.del);m.recs=m.recs.filter(r=>!dl.has(r.id));
+  m.saved=Math.max(a.saved||0,b.saved||0);return m;
+}
+
+/* ---------- calendar file: one weekly event per lesson, alarm 10 minutes before ---------- */
+function ics(data,from){
+  const z=d=>d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate())+'T'+pad(d.getUTCHours())+pad(d.getUTCMinutes())+'00Z';
+  const BY=['SU','MO','TU','WE','TH'],L=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Science Hub//AR','CALSCALE:GREGORIAN','X-WR-CALNAME:حصصي'];
+  for(let i=0;i<7;i++){const d=new Date(from.getFullYear(),from.getMonth(),from.getDate()+i,12);
+    slots(data,d).forEach(s=>{L.push('BEGIN:VEVENT','UID:hub-'+s.day+'-'+s.p+'@science-hub','DTSTAMP:'+z(from),'DTSTART:'+z(s.start),'DTEND:'+z(s.end),
+      'RRULE:FREQ=WEEKLY;BYDAY='+BY[s.day],'SUMMARY:'+cellName(data,s.cell)+' - الحصة '+(s.p+1),
+      'BEGIN:VALARM','ACTION:DISPLAY','DESCRIPTION:'+cellName(data,s.cell),'TRIGGER:-PT10M','END:VALARM','END:VEVENT');});}
+  L.push('END:VCALENDAR');return L.join('\r\n')+'\r\n';
+}
+
+/* ---------- reports ---------- */
+const LVN=['دعم','متدني','متوسط','متفوق'];
+const pd=s=>{const[y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d,12);};
+const add=(s,n)=>{const x=pd(s);x.setDate(x.getDate()+n);return iso(x);};
+const weekStart=s=>add(s,-pd(s).getDay());
+function range(kind,ref,off){
+  if(kind==='day'){const d=add(ref,off);return{from:d,to:d};}
+  if(kind==='week'){let w=weekStart(ref);w=add(w,7*off);return{from:w,to:add(w,4)};}
+  const x=pd(ref),a=new Date(x.getFullYear(),x.getMonth()+off,1,12),b=new Date(x.getFullYear(),x.getMonth()+off+1,0,12);return{from:iso(a),to:iso(b)};
+}
+function summary(data,sid,from,to,list){
+  const days={},o={abs:[],late:[],miss:{},part:0,pts:0,warn:0,viol:0,notes:[]};
+  for(const e of list||data.recs){if(e.s!==sid||e.d<from||e.d>to)continue;const x=days[e.d]||(days[e.d]={att:'P',at:-1,warn:0,tools:{}});
+    if(e.k==='att'){if(e.t>=x.at){x.at=e.t;x.att=e.v;}}else if(e.k==='tool')x.tools[e.v]=1;else if(e.k==='part')o.part++;else if(e.k==='pts')o.pts+=e.v;
+    else if(e.k==='warn')x.warn++;else if(e.k==='note')o.notes.push({d:e.d,v:e.v,t:e.t});}
+  Object.keys(days).sort().forEach(d=>{const x=days[d];if(x.att==='A')o.abs.push(d);if(x.att==='L')o.late.push(d);
+    Object.keys(x.tools).forEach(t=>o.miss[t]=(o.miss[t]||0)+1);o.warn+=Math.min(x.warn,2);if(x.warn>=3)o.viol++;});
+  o.notes.sort((a,b)=>a.d<b.d?-1:a.d>b.d?1:a.t-b.t);o.notes=o.notes.map(x=>({d:x.d,v:x.v}));return o;
+}
+const score=s=>s.pts+s.part-2*s.warn-3*s.viol-s.abs.length;
+function series(data,sids,from,to){
+  const out=[],mine=data.recs.filter(e=>sids.includes(e.s));
+  for(let w=weekStart(from);w<=to;w=add(w,7)){const r={w,pts:0,part:0,beh:0,abs:0};
+    sids.forEach(sid=>{const s=summary(data,sid,w,add(w,6),mine);r.pts+=s.pts;r.part+=s.part;r.beh+=s.warn+s.viol;r.abs+=s.abs.length;});out.push(r);}
+  return out;
+}
+/* last four weeks in which his class had a recorded lesson; a week with nothing recorded for him scores 0 */
+function suggestLevel(data,sid,today){
+  const st=data.students.find(s=>s.id===sid);if(!st)return 2;
+  const wk=[...new Set(data.recs.filter(e=>e.c===st.c&&e.d<=today).map(e=>weekStart(e.d)))].sort().reverse().slice(0,4);
+  if(!wk.length)return 2;const avg=wk.reduce((n,w)=>n+score(summary(data,sid,w,add(w,6))),0)/wk.length;
+  return avg>=4?3:avg<0?1:2;
+}
+function trend(data,sids,today){
+  const w0=weekStart(today),a=add(w0,-21),b=add(w0,-49),up=[],down=[];
+  sids.forEach(sid=>{const n=summary(data,sid,a,add(w0,6)),p=summary(data,sid,b,add(a,-1)),x=n.warn+n.viol,y=p.warn+p.viol;
+    if(x>y)up.push({sid,now:x,before:y});else if(x<y)down.push({sid,now:x,before:y});});
+  return{up,down};
+}
+function csv(rows){return '﻿'+rows.map(r=>r.map(v=>{v=String(v==null?'':v);return /[",\r\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;}).join(',')).join('\r\n')+'\r\n';}
+function classDays(data,cid,today,n){const out=[];
+  for(let d=today,i=0;out.length<n&&i<400;i++,d=add(d,-1)){const w=pd(d).getDay();if(w<5&&data.tt[w].some(c=>c&&c.c===cid))out.push(d);}
+  return out;}
+
+/* ---------- seating ---------- */
+const GEO={single:{size:1,per:6,dc:1,name:'فردي'},pairs:{size:2,per:3,dc:2,name:'أزواج'},groups:{size:4,per:3,dc:2,name:'مجموعات'}};
+function seatPlan(data,cid,shape){
+  const g=GEO[shape],live=data.students.filter(s=>s.c===cid&&!s.arch).sort((a,b)=>a.full.localeCompare(b.full,'ar')).map(s=>s.id);
+  const saved=((((data.seat||{})[cid]||{}).plans||{})[shape])||[],seen=new Set();
+  const p=saved.map(x=>x&&live.includes(x)&&!seen.has(x)?(seen.add(x),x):null);
+  live.filter(x=>!seen.has(x)).forEach(x=>{const i=p.indexOf(null);if(i>=0)p[i]=x;else p.push(x);});
+  const n=g.size*g.per;while(p.length%n||!p.length)p.push(null);
+  while(p.length>n&&p.slice(-n).every(x=>x==null))p.length-=n;
+  return p;
+}
+function seatPos(shape,i){const g=GEO[shape],u=Math.floor(i/g.size);
+  if(shape==='groups')return{u,row:Math.floor(u/g.per),col:null};
+  return{u,row:Math.floor(u/g.per),col:(u%g.per)*g.size+i%g.size};}
+function near(shape,p,q){const a=seatPos(shape,p),b=seatPos(shape,q);
+  if(GEO[shape].size>1&&a.u===b.u)return true;return a.col!=null&&a.row===b.row&&Math.abs(a.col-b.col)===1;}
+function clashes(plan,shape,apart){return(apart||[]).filter(([x,y])=>{const p=plan.indexOf(x),q=plan.indexOf(y);return p>=0&&q>=0&&near(shape,p,q);});}
+function groups(plan){const out=[];for(let u=0;u*4<plan.length;u++){const m=plan.slice(u*4,u*4+4).filter(Boolean);if(m.length)out.push({u,m});}return out;}
+
+/* ---------- phone ↔ laptop ---------- */
+/* short permanent numbers: the phone and the laptop name a class or a student by this number */
+function number(data){data.nseq=data.nseq||{c:0,s:0};
+  ['classes','students'].forEach(k=>{const q=k[0];data[k].forEach(x=>{if(x.n)data.nseq[q]=Math.max(data.nseq[q],x.n);});data[k].forEach(x=>{if(!x.n)x.n=++data.nseq[q];});});return data;}
+const b36=n=>n.toString(36),p36=s=>parseInt(s,36);
+/* laptop → phone: everything the phone needs to track, and no records */
+function packRoster(data){
+  number(data);const cn={},sn={};data.classes.forEach(c=>cn[c.id]=c.n);data.students.forEach(s=>sn[s.id]=s.n);
+  const live=data.classes.filter(c=>!c.arch),st=data.students.filter(s=>!s.arch&&live.some(c=>c.id===s.c)),ok=new Set(st.map(s=>s.id));
+  const seat={};live.forEach(c=>{const x=(data.seat||{})[c.id];if(!x)return;const pl={};Object.keys(x.plans||{}).forEach(k=>pl[k]=x.plans[k].map(i=>ok.has(i)?sn[i]:0));
+    seat[c.n]={h:x.shape,p:pl,a:(x.apart||[]).filter(a=>ok.has(a[0])&&ok.has(a[1])).map(a=>[sn[a[0]],sn[a[1]]])};});
+  const lv={};Object.keys(data.lv||{}).forEach(i=>{if(ok.has(i))lv[sn[i]]=data.lv[i];});
+  return JSON.stringify({v:2,c:live.map(c=>[c.n,c.name]),s:st.map(s=>[s.n,cn[s.c],s.full,s.name===shortName(s.full)?0:s.name]),p:data.periods,
+    tt:data.tt.map(r=>r.map(x=>!x?0:x.x?'x'+x.x:live.some(c=>c.id===x.c)?cn[x.c]:0)),set:data.set,seat,lv});}
+function unpackRoster(text){const o=JSON.parse(text);if(!o||o.v!==2||!Array.isArray(o.c)||!Array.isArray(o.s))throw new Error('roster');return o;}
+function applyRoster(data,o){
+  data.classes=o.c.map(c=>({id:'c'+c[0],n:c[0],name:c[1]}));
+  data.students=o.s.map(s=>({id:'n'+s[0],n:s[0],c:'c'+s[1],full:s[2],name:s[3]||shortName(s[2])}));
+  data.periods=o.p;data.tt=o.tt.map(r=>r.map(x=>!x?null:typeof x==='string'?{x:x.slice(1)}:{c:'c'+x}));data.set=o.set;
+  data.seat={};Object.keys(o.seat||{}).forEach(k=>{const x=o.seat[k],pl={};Object.keys(x.p).forEach(q=>pl[q]=x.p[q].map(i=>i?'n'+i:null));
+    data.seat['c'+k]={shape:x.h,plans:pl,apart:x.a.map(a=>['n'+a[0],'n'+a[1]])};});
+  data.lv={};Object.keys(o.lv||{}).forEach(k=>data.lv['n'+k]=o.lv[k]);return data;}
+/* phone → laptop: one short line per record.  @date  #class  then  counter,student,kind+value,hhmm,period[,text[,group]] */
+const escT=t=>String(t).replace(/[%,\n|~]/g,c=>'%'+c.charCodeAt(0).toString(16).padStart(2,'0')),unT=t=>t.replace(/%([0-9a-f]{2})/g,(m,h)=>String.fromCharCode(parseInt(h,16)));
+function packRecs(data,recs,dels){
+  const sn={},cn={};data.students.forEach(s=>sn[s.id]=s.n);data.classes.forEach(c=>cn[c.id]=c.n);
+  const L=['R'+data.dev];let d='',c='';
+  recs.slice().sort((a,b)=>a.d<b.d?-1:a.d>b.d?1:a.c<b.c?-1:a.c>b.c?1:a.n-b.n).forEach(e=>{
+    if(e.d!==d){d=e.d;L.push('@'+d);c='';}if(e.c!==c){c=e.c;L.push('#'+b36(cn[c]||0));}
+    const x=new Date(e.t),hm=pad(x.getHours())+pad(x.getMinutes());
+    const kv=e.k==='att'?'a'+e.v:e.k==='tool'?'t'+Math.max(0,data.set.tools.findIndex(t=>t.id===e.v)):e.k==='part'?'p':e.k==='pts'?'s'+e.v:e.k==='warn'?'w':e.k==='note'?'n':'l';
+    const txt=e.k==='note'?escT(e.v):e.k==='warn'&&e.r?escT(e.r):'',g=e.grp?escT(e.grp)+'~'+escT(e.gn||''):'';
+    L.push([b36(e.n),e.s?b36(sn[e.s]||0):'',kv,hm,e.p==null?'':e.p].concat(g?[txt,g]:txt?[txt]:[]).join(','));});
+  (dels||[]).forEach(i=>L.push('x'+i));return L.join('\n');}
+function unpackRecs(text,data){
+  const L=text.split('\n');if(!/^R\w+$/.test(L[0]))throw new Error('records');
+  const dev=L[0].slice(1),sn={},cn={},out={dev,recs:[],dels:[],unknown:0};data.students.forEach(s=>sn[s.n]=s.id);data.classes.forEach(c=>cn[c.n]=c.id);let d='',c=null;
+  L.slice(1).forEach(l=>{if(!l)return;if(l[0]==='@'){d=l.slice(1);return;}if(l[0]==='#'){c=cn[p36(l.slice(1))]||null;return;}if(l[0]==='x'){out.dels.push(l.slice(1));return;}
+    const f=l.split(','),n=p36(f[0]),s=f[1]?sn[p36(f[1])]:null,k=f[2][0],v=f[2].slice(1);
+    if(!d||!c||(f[1]&&!s)||isNaN(n)){out.unknown++;return;}
+    const e={id:'p'+dev+'-'+f[0],d,p:f[4]===''?null:+f[4],c,s,t:at(new Date(d+'T12:00'),f[3].slice(0,2)+':'+f[3].slice(2)).getTime()+n%60000};
+    if(k==='a'){e.k='att';e.v=v;}else if(k==='t'){e.k='tool';e.v=(data.set.tools[+v]||data.set.tools[0]).id;}else if(k==='p'){e.k='part';e.v=1;}else if(k==='s'){e.k='pts';e.v=+v;}
+    else if(k==='w'){e.k='warn';e.v=1;e.r=f[5]?unT(f[5]):'';}else if(k==='n'){e.k='note';e.v=unT(f[5]||'');}else{e.k='les';e.v=1;}
+    if(f[6]){const g=f[6].split('~');e.grp=unT(g[0]);e.gn=unT(g[1]||'');}out.recs.push(e);});
+  return out;}
+function receive(data,u){
+  const have=new Set(data.recs.map(r=>r.id)),gone=new Set(data.del),res={added:0,dup:0,removed:0};
+  (u.recs||[]).forEach(e=>{if(have.has(e.id)||gone.has(e.id))res.dup++;else{data.recs.push(e);have.add(e.id);res.added++;}});
+  (u.dels||[]).forEach(id=>{const i=data.recs.findIndex(r=>r.id===id);if(i>=0){data.recs.splice(i,1);res.removed++;}if(!gone.has(id)){data.del.push(id);gone.add(id);}});
+  return res;}
+/* a long text travels as several QR codes:  H2|kind|check|i|n|part  (check = hash of the whole text) */
+function hash(t){let h=2166136261;for(let i=0;i<t.length;i++){h^=t.charCodeAt(i);h=Math.imul(h,16777619);}return(h>>>0).toString(36);}
+const blen=ch=>{const c=ch.codePointAt(0);return c<128?1:c<2048?2:c<65536?3:4;};
+function frames(kind,text,max){const id=hash(text),room=max-(('H2|'+kind+'|'+id+'|99|99|').length),parts=[];let cur='',n=0;
+  for(const ch of text){const b=blen(ch);if(n+b>room){parts.push(cur);cur='';n=0;}cur+=ch;n+=b;}parts.push(cur);
+  return parts.map((p,i)=>['H2',kind,id,i+1,parts.length,p].join('|'));}
+function collector(){let id=null,parts=[],total=0,kind='';
+  return{add(f){const m=/^H2\|(\w)\|(\w+)\|(\d+)\|(\d+)\|([\s\S]*)$/.exec(f||'');if(!m)return null;
+    if(m[2]!==id){id=m[2];kind=m[1];total=+m[4];parts=[];}
+    parts[+m[3]-1]=m[5];const have=parts.filter(x=>x!=null).length,o={kind,have,total,done:false};
+    if(have===total){const text=parts.join('');if(hash(text)===id){o.done=true;o.text=text;}else{parts=[];o.have=0;}}
+    return o;}};}
+
+return{number,packRoster,unpackRoster,applyRoster,packRecs,unpackRecs,receive,frames,collector,hash,GEO,seatPlan,seatPos,near,clashes,groups,LVN,range,summary,score,series,suggestLevel,trend,csv,classDays,weekStart,addDays:add,DAYS,LEVELS,level,iso,uid,latin,clean,shortName,displayNames,parseNames,decode,normCls,defaultTT,blank,dayState,nextAtt,
+  lessonDates,streak,followUps,slots,slotAt,nextLesson,periodFor,countLessons,cellName,merge,ics};
+});
+
+</script>
+<script>
+/* Science Teaching Hub – stage 1 screens. No student names live in this file: they arrive by import and are kept in
+   hub-data.json (the chosen folder) and in this browser's storage. */
+(function(){
+'use strict';
+const C=window.HUBCORE,$=id=>document.getElementById(id);
+const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const SV=(d,f)=>`<svg viewBox="0 0 24 24" fill="${f?'currentColor':'none'}" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
+const IC={att:SV('<circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c0-4 3.2-6.4 7.5-6.4s7.5 2.4 7.5 6.4"/>'),
+  tool:SV('<path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5z"/><path d="M5 19.5A1.5 1.5 0 0 0 6.5 21H19"/>'),
+  part:SV('<path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V11"/><path d="M12 10V4.5a1.5 1.5 0 0 1 3 0V11"/><path d="M15 10.500V7a1.500 1.500 0 0 1 3 0v8c0 3.500-2.500 6-6 6-2.500 0-4-1-5.500-3L4 14.500a1.500 1.500 0 0 1 2.500-1.700L9 15V8.500"/>'),
+  pts:SV('<path d="M12 3l2.7 5.6 6.1.8-4.5 4.300 1.100 6.100L12 16.900 6.600 19.800l1.100-6.100L3.200 9.400l6.100-.8z"/>'),
+  warn:SV('<path d="M12 4L2.800 19.500h18.400z"/><path d="M12 10v4.500"/><circle cx="12" cy="17" r=".6" fill="currentColor"/>'),
+  undo:SV('<path d="M4 12a8 8 0 1 0 2.4-5.700"/><path d="M4 4v4.500h4.500"/>'),more:SV('<circle cx="12" cy="5" r="1.7" fill="currentColor"/><circle cx="12" cy="12" r="1.7" fill="currentColor"/><circle cx="12" cy="19" r="1.7" fill="currentColor"/>'),
+  x:SV('<path d="M6 6l12 12M18 6L6 18"/>'),bell:SV('<path d="M6 16V11a6 6 0 0 1 12 0v5l1.500 2h-15z"/><path d="M10 20.500a2 2 0 0 0 4 0"/>'),note:SV('<path d="M5 4h14v12H9l-4 4z"/><path d="M8.500 9h7M8.500 12.500h4"/>'),send:SV('<rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><path d="M14 14h2.500v2.500M20 14v6h-3M14 20v-1"/>'),
+  list:SV('<path d="M5 20V10M12 20V4M19 20v-7"/>')};
+
+IC.menu=SV('<path d="M4 7h16M4 12h16M4 17h16"/>');
+IC.book=SV('<path d="M12 6.5C10 5 7 4.5 3.5 5v13c3.5-.5 6.5 0 8.5 1.5 2-1.5 5-2 8.5-1.5V5C17 4.5 14 5 12 6.5z"/><path d="M12 6.5v13"/>');
+IC.folder=SV('<path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>');
+
+const MODES=[['att','حضور'],['tool','أدوات'],['part','مشاركة'],['pts','نقاط'],['warn','إنذار']];
+const WD=['الأحد','الإثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+const LS='hubData1';
+const T0=Date.now(),HN=/now=([^&]+)/.exec(location.hash);          // #now=2026-11-17T08:45 : clock override for testing
+const now=()=>HN?new Date(new Date(decodeURIComponent(HN[1])).getTime()+Date.now()-T0):new Date();
+const today=()=>C.iso(now());
+const L=t=>`<bdi dir="ltr">${t}</bdi>`;
+const cn=n=>'<bdi dir="'+(/[\u0600-\u06FF]/.test(n)?'auto':'ltr')+'">'+esc(n)+'</bdi>';      // a class name such as 8-10 must not flip after Arabic words
+const sgn=v=>L((v>0?'+':'−')+Math.abs(v));
+const hm=t=>{const d=new Date(t);return L(String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0'));};
+const dayLbl=d=>{const x=new Date(d+'T12:00');return WD[x.getDay()]+'\u00a0'+L(x.getDate()+'/'+(x.getMonth()+1));};
+
+let D=C.blank();
+const S={cls:null,mode:'att',pv:0,reason:0,view:matchMedia('(max-width:700px)').matches?'teacher':'board',
+  ops:[],slotKey:null,sort:'name',lay:'list',arr:false,pick:null,apart:null,flip:false,rp:{kind:'week',off:0,notes:true},add:{d:'',open:false},day:'',sheet:null,im:{text:'',cls:'',pv:null},ttEdit:false,dis:'',bk:null};
+const sv={state:'browser',dir:null,fs:'showDirectoryPicker' in window,q:Promise.resolve(),timer:0};
+/* a phone or tablet is always the collecting device, even when its Chrome can save to folders */
+const VER='17-11 1631';
+const MOBILE=/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent)||(navigator.userAgentData&&navigator.userAgentData.mobile);
+const PHONE=!/[?&]laptop\b/.test(location.search)&&(MOBILE||!sv.fs||/[?&]phone\b/.test(location.search));   // the phone collects; the laptop keeps the one true copy
+function newId(){if(!PHONE)return{id:C.uid()};D.pctr=(D.pctr||0)+1;return{id:'p'+D.dev+'-'+D.pctr.toString(36),n:D.pctr};}
+
+const liveClasses=()=>D.classes.filter(c=>!c.arch);
+const cls=()=>D.classes.find(c=>c.id===S.cls);
+const cname=id=>(D.classes.find(c=>c.id===id)||{}).name||'';
+const stu=id=>D.students.find(s=>s.id===id);
+const studs=cid=>D.students.filter(s=>s.c===cid&&!s.arch).sort((a,b)=>a.full.localeCompare(b.full,'ar'));
+const toolName=id=>(D.set.tools.find(t=>t.id===id)||{}).n||'أداة';
+const fix=d=>{const b=C.blank();return Object.assign(b,d,{lp:d.lp||{},set:Object.assign(b.set,d.set||{}),lv:d.lv||{},seat:d.seat||{}});};
+const LVC=['#7A3FB0','#C2571A','#2374C6','#18874A'];
+const lvOf=sid=>D.lv[sid]!=null?D.lv[sid]:C.suggestLevel(D,sid,today());
+const dot=k=>`<i class="lvd" style="background:${LVC[k]}"></i>`;
+
+/* ================= saving ================= */
+function idb(){return new Promise((res,rej)=>{const r=indexedDB.open('scienceHub',1);r.onupgradeneeded=()=>r.result.createObjectStore('kv');r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error);});}
+async function kvGet(k){const db=await idb();return new Promise((res,rej)=>{const q=db.transaction('kv').objectStore('kv').get(k);q.onsuccess=()=>res(q.result);q.onerror=()=>rej(q.error);});}
+async function kvSet(k,v){const db=await idb();return new Promise((res,rej)=>{const tx=db.transaction('kv','readwrite');tx.objectStore('kv').put(v,k);tx.oncomplete=()=>res();tx.onerror=()=>rej(tx.error);});}
+const KV=window.HUB_TEST_KV||{get:kvGet,set:kvSet};   // test seam: the test browser cannot read a stored folder back
+async function writeFile(dir,name,text){const fh=await dir.getFileHandle(name,{create:true});const w=await fh.createWritable();await w.write(text);await w.close();}
+async function readDir(){try{const fh=await sv.dir.getFileHandle('hub-data.json');const t=await(await fh.getFile()).text();return t?JSON.parse(t):null;}
+  catch(e){if(e.name==='NotFoundError')return null;throw e;}}
+/* one copy per teaching day, holding the data as it stood when the Hub was first opened that day */
+async function backupDay(text){const bd=await sv.dir.getDirectoryHandle('backups',{create:true}),name='hub-'+today()+'.json';
+  try{await bd.getFileHandle(name);}catch(e){if(e.name!=='NotFoundError')throw e;await writeFile(bd,name,text);}}
+function persistLocal(){try{localStorage.setItem(LS,JSON.stringify(D));return true;}catch(e){return false;}}
+function setSave(s){if(sv.state===s)return;sv.state=s;header();perm();if(S.sheet&&S.sheet.t==='save')sheet();}
+function flush(){sv.q=sv.q.then(()=>writeFile(sv.dir,'hub-data.json',JSON.stringify(D))).then(()=>setSave('folder'),e=>{console.warn('save',e);setSave('error');});return sv.q;}
+function changed(){D.saved=Date.now();const ok=persistLocal();
+  if(sv.dir&&sv.state!=='need'){clearTimeout(sv.timer);sv.timer=setTimeout(flush,200);}
+  else if(!ok)toast('تعذّر الحفظ في المتصفح. نزّل نسخة احتياطية الآن.','warn');
+  render();lessonSync();if(PHONE)liveSend();}
+async function attach(){const f=await readDir();
+  if(f&&f.v){await backupDay(JSON.stringify(f));D=(D.classes.length||D.recs.length)?C.merge(D,fix(f)):fix(f);}
+  persistLocal();await flush();}
+async function chooseDir(){
+  try{const h=await window.showDirectoryPicker({mode:'readwrite',id:'scienceHub'});sv.dir=h;await KV.set('dir',h);await attach();
+    if(sv.state==='folder')toast('سيُحفظ كل شيء في هذا المجلد تلقائياً','info');}
+  catch(e){if(e.name!=='AbortError'){console.warn(e);setSave('error');toast('تعذّر استخدام هذا المجلد','warn');}}
+  S.slotKey=null;autoClass();render();sheet();}
+let asking=false;
+async function regrant(){if(asking)return;asking=true;try{if(await sv.dir.requestPermission({mode:'readwrite'})==='granted'){await attach();S.slotKey=null;autoClass();render();sheet();}}catch(e){console.warn(e);setSave('error');}finally{asking=false;}}
+function download(name,text,type){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type}));a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),4000);}
+
+/* ================= records ================= */
+function rec(sid,k,v,x){const dt=now();return Object.assign(newId(),{d:C.iso(dt),p:C.periodFor(D,S.cls,dt),c:S.cls,s:sid,k,v,t:dt.getTime()},x||{});}
+function act(label,add,rem){
+  rem.forEach(r=>{const i=D.recs.indexOf(r);if(i>=0)D.recs.splice(i,1);D.del.push(r.id);if(r.sent)(D.pdel=D.pdel||[]).push(r.id);});
+  add.forEach(r=>D.recs.push(r));S.ops.push({label,add:add.map(r=>r.id),rem});changed();}
+function undo(){const o=S.ops.pop();if(!o)return;
+  D.recs=D.recs.filter(r=>{if(!o.add.includes(r.id))return true;if(r.sent)(D.pdel=D.pdel||[]).push(r.id);return false;});D.del.push(...o.add);
+  o.rem.forEach(r=>{D.recs.push(r);D.del=D.del.filter(x=>x!==r.id);if(D.pdel)D.pdel=D.pdel.filter(x=>x!==r.id);});changed();}
+function tap(sid){
+  const st=stu(sid);if(!st)return;const o=C.dayState(D,sid,today()),nm=esc(st.name);
+  if(S.mode==='att'){const v=C.nextAtt(o.att);
+    act({A:'غائب',L:'متأخر',P:'حاضر'}[v]+' · '+nm,v==='P'?[]:[rec(sid,'att',v)],o.recs.filter(r=>r.k==='att'));return;}
+  if(o.att==='A'){toast(nm+' غائب اليوم، لم يُسجَّل شيء','info');return;}
+  if(S.mode==='tool'){open('tool',sid);return;}
+  if(S.mode==='part'){act('مشاركة · '+nm,[rec(sid,'part',1)],[]);return;}
+  if(S.mode==='pts'){const v=D.set.pts[S.pv]!=null?D.set.pts[S.pv]:D.set.pts[0];act('نقاط '+sgn(v)+' · '+nm,[rec(sid,'pts',v)],[]);return;}
+  if(o.warn>=3){toast('سُجّلت مخالفة للطالب '+nm+' اليوم','info');return;}
+  const before=C.streak(D,sid,S.cls,today()).n;
+  act(C.LEVELS[o.warn+1]+' · '+nm,[rec(sid,'warn',1,{r:D.set.reasons[S.reason]||''})],[]);
+  if(before<3&&C.streak(D,sid,S.cls,today()).n>=3&&S.view==='teacher')toast(nm+': إنذار في ثلاث حصص متتالية','warn','fu');
+}
+function toggleTool(sid,tid){const o=C.dayState(D,sid,today()),old=o.recs.filter(r=>r.k==='tool'&&r.v===tid),nm=esc(stu(sid).name),tn=esc(toolName(tid));
+  if(old.length)act('أحضر '+tn+' · '+nm,[],old);else act('بدون '+tn+' · '+nm,[rec(sid,'tool',tid)],[]);}
+
+/* ================= class of the moment ================= */
+function autoClass(){
+  const s=C.slotAt(D,now()),key=s?s.day+'-'+s.p:'none';
+  if(key!==S.slotKey){S.slotKey=key;const c=s&&s.cell.c&&D.classes.find(x=>x.id===s.cell.c&&!x.arch);if(c)S.cls=c.id;}
+  if(!cls()||cls().arch)S.cls=(liveClasses()[0]||{}).id||null;
+  if(S.day!==today()){S.day=today();S.ops=[];}
+}
+/* a lesson that passes with no tap still counts as a lesson (it ends a run of warned lessons) */
+function marker(){const dt=now(),s=C.slotAt(D,dt);
+  if(!s||s.cell.c!==S.cls||dt<s.start||!studs(S.cls).length||D.recs.some(r=>r.c===S.cls&&r.d===today()))return false;
+  D.recs.push(Object.assign(newId(),{d:today(),p:s.p,c:S.cls,s:null,k:'les',v:1,t:dt.getTime()}));changed();return true;}
+function tick(){const pc=S.cls,pd=S.day;autoClass();remind();lessonSync();if(marker())return;if(pc!==S.cls||pd!==S.day)render();else header();}
+
+/* ================= main screen ================= */
+const B=(c,h,out)=>`<span class="b ${out?'out':''}" style="--c:var(--${c})">${h}</span>`;
+function badges(o,T){const b=[];
+  if(o.att==='A')b.push(B('att','غائب'));if(o.att==='L')b.push(B('att','متأخر',1));
+  o.missing.forEach(id=>b.push(B('tool','بدون '+esc(toolName(id)),1)));
+  if(o.part)b.push(B('part',IC.part+L(o.part)));
+  if(o.pts)b.push(B('pts',IC.pts+sgn(o.pts)));
+  if(o.warn)b.push(B('warn',IC.warn+C.LEVELS[C.level(o.warn)],o.warn<3));
+  if(T&&o.notes.length)b.push(B('ink',IC.note+L(o.notes.length),1));
+  return b.join('');}
+function saveChip(){const m={folder:['','محفوظ في المجلد'],browser:['warn','محفوظ في المتصفح فقط'],nofs:['warn','محفوظ في المتصفح فقط'],need:['bad','اضغط لمتابعة الحفظ في المجلد'],error:['bad','تعذّر الحفظ في المجلد']}[sv.state];
+  return `<button class="save ${m[0]}" ${sv.state==='need'?'data-regrant':'data-open="save"'} title="${m[1]}"><i></i><span>${m[1]}</span></button>`;}
+function header(){
+  const T=S.view==='teacher',c=cls();
+  if(!c){$('hd').innerHTML=`<b class="brand">مركز تدريس العلوم</b><span class="sp"></span>${saveChip()}`;return;}
+  const sl=C.slotAt(D,now()),sub=sl&&sl.cell.c===S.cls?'الحصة '+(sl.p+1)+' · '+L(D.periods[sl.p][0]+'–'+D.periods[sl.p][1]):'خارج وقت الحصة';
+  const inner=`<b>${cn(c.name)}</b><small>${sub}</small>`,fu=T?C.followUps(D,S.cls,today()).length:0;
+  $('hd').innerHTML=(T?`<button class="slot" data-open="tt" aria-label="الصف والجدول">${inner}</button>`:`<div class="slot">${inner}</div>`)+
+    (fu?`<button class="bell" data-open="fu" aria-label="طلاب يحتاجون متابعة">${IC.bell}<i>${fu}</i></button>`:'')+`<span class="sp"></span>`+
+    (T?`<span class="priv">شاشة خاصة</span>`:'')+(liveOn()?`<button class="livech" data-open="live">${PHONE?'متصل بالحاسوب':'متصل بالهاتف'}</button>`:'')+saveChip()+
+    (PHONE?'':`<a class="chip" href="science-g8/index.html" target="_blank" rel="noopener" data-book>${IC.book}الدروس</a>`+(T?`<button class="chip" data-open="rep">${IC.list}التقارير</button>`:''))+
+    `<button class="chip" data-view="${T?'board':'teacher'}">${T?'عرض السبورة':'عرض المعلم'}</button>`+
+    (T?`<button class="chip" data-open="menu">${IC.menu}القائمة</button>`:'');
+}
+function modes(){
+  $('modes').innerHTML=MODES.map(([k,n])=>`<button class="mode ${S.mode===k?'on':''}" data-mode="${k}" style="--c:var(--${k})">${IC[k]}<span>${n}</span></button>`).join('');
+  document.body.style.setProperty('--m',`var(--${S.mode})`);
+  $('sub').innerHTML=S.mode==='pts'?'<span class="lbl">القيمة:</span>'+D.set.pts.map((v,i)=>`<button class="chip ${S.pv===i?'on':''}" data-pv="${i}">${sgn(v)}</button>`).join('')
+    :S.mode==='warn'?'<span class="lbl">السبب:</span>'+D.set.reasons.map((r,i)=>`<button class="chip ${S.reason===i?'on':''}" data-rs="${i}">${esc(r)}</button>`).join('')
+    :`<span class="lbl">${{att:'اضغط على الاسم: غائب، ثم متأخر، ثم حاضر',tool:'اضغط على الاسم لتحديد ما لم يحضره',part:'كل ضغطة على الاسم مشاركة واحدة'}[S.mode]}</span>`;
+}
+function grid(){
+  const T=S.view==='teacher',d=today(),list=studs(S.cls);let pres=0;
+  if(!T||S.lay==='list'){S.arr=false;S.pick=null;S.apart=null;}
+  document.body.classList.toggle('arr',S.arr);document.body.classList.toggle('show',S.lay==='show');document.body.classList.toggle('room-on',S.lay!=='list');
+  const st={};list.forEach(s=>{st[s.id]=C.dayState(D,s.id,d);if(st[s.id].att!=='A')pres++;});
+  const g=$('grid');
+  if(S.lay==='list'){
+    if(T&&S.sort!=='name'){const wk=C.range('week',d,0),pw={},lv={};list.forEach(s=>{pw[s.id]=C.summary(D,s.id,wk.from,wk.to).pts;lv[s.id]=lvOf(s.id);});
+      list.sort((a,b)=>S.sort==='level'?lv[b.id]-lv[a.id]||pw[b.id]-pw[a.id]:pw[b.id]-pw[a.id]);}
+    g.className='grid';
+    g.innerHTML=list.map(s=>{const o=st[s.id];
+      return `<button class="st ${o.att==='A'?'abs':''}" data-st="${s.id}"><span class="nm">${T?dot(lvOf(s.id)):''}${esc(s.name)}</span><span class="bd">${badges(o,T)}</span>${T?`<span class="more" data-more="${s.id}" role="button" aria-label="سجل ${esc(s.name)}">${IC.more}</span>`:''}</button>`;}).join('')
+      ||`<p class="empty">لا أسماء في هذا الصف بعد. أضفها من القائمة ثم «الصفوف والأسماء».</p>`;
+    g.style.setProperty('--cols',Math.min(8,Math.max(6,Math.ceil(list.length/4))));
+  }else room(st,T);
+  const dt=now(),nx=C.nextLesson(D,dt),seg=`<span class="seg sm">${[['list','قائمة'],['seats','مقاعد'],['show','عرض الجلوس']].map(x=>`<button class="${S.lay===x[0]?'on':''}" data-lay="${x[0]}">${x[1]}</button>`).join('')}</span>`;
+  if(S.lay==='show'){$('ctl').innerHTML=seg+`<h2>أماكن الجلوس · ${cn(cname(S.cls))}</h2><span class="sp"></span><button class="chip sm ${S.flip?'on':''}" data-flip>${S.flip?'كما يراه المعلم':'كما يراه الطلاب'}</button>`;return;}
+  if(S.arr){const sh=shapeOf(S.cls),ap=seatOf(S.cls).apart||[];
+    $('ctl').innerHTML=`<button class="chip on" data-arr>تم</button>`+Object.keys(C.GEO).map(k=>`<button class="chip sm ${sh===k?'on':''}" data-shape="${k}">${C.GEO[k].name}</button>`).join('')+
+      `<button class="chip sm ${S.apart?'warnon':''}" data-apart>+ لا يجلسان معاً</button>`+ap.map((x,k)=>`<span class="pairx">${esc((stu(x[0])||{}).name||'')} ✕ ${esc((stu(x[1])||{}).name||'')}<button data-unapart="${k}" aria-label="احذف">${IC.x}</button></span>`).join('')+
+      `<span class="hint">${S.apart?'اضغط على الطالبين اللذين لا يجلسان معاً.':'اسحب الاسم إلى مقعد آخر، أو اضغط على اسم ثم على المقعد الجديد. يتبادل الطالبان المكانين.'}</span>`;return;}
+  $('ctl').innerHTML=seg+`<span>${WD[dt.getDay()]} ${L(dt.getDate()+'/'+(dt.getMonth()+1))}</span><span>·</span><span>الحاضرون ${L(pres)} من ${L(list.length)}</span>`+
+    (nx?`<span>·</span><span>الحصة التالية: ${cn(C.cellName(D,nx.cell))}، ${WD[nx.day]} ${L(D.periods[nx.p][0])}</span>`:'')+
+    (T&&list.length&&S.lay==='list'?`<span class="sp"></span><span>الترتيب:</span>`+[['name','الاسم'],['level','المستوى'],['pts','نقاط الأسبوع']].map(x=>`<button class="chip sm ${S.sort===x[0]?'on':''}" data-sort="${x[0]}">${x[1]}</button>`).join('')+`<span>${[3,2,1,0].map(k=>dot(k)+C.LVN[k]).join(' · ')}</span>`:'')+
+    (T&&!PHONE&&list.length&&S.lay==='seats'?`<span class="sp"></span><button class="chip sm" data-arr>ترتيب المقاعد</button>`:'');
+}
+/* ================= seating ================= */
+const seatOf=cid=>D.seat[cid]||(D.seat[cid]={shape:'pairs',plans:{},apart:[]});
+const shapeOf=cid=>(D.seat[cid]||{}).shape||'pairs';
+const planOf=cid=>C.seatPlan(D,cid,shapeOf(cid));
+function setPlan(cid,p){seatOf(cid).plans[shapeOf(cid)]=p;}
+function room(st,T){
+  const sh=shapeOf(S.cls),G=C.GEO[sh],plan=planOf(S.cls),show=S.lay==='show',plain=show||S.arr;
+  const bad=new Set(T?[].concat(...C.clashes(plan,sh,seatOf(S.cls).apart)):[]);
+  const tile=(sid,p)=>{if(!sid)return `<button class="st empty" data-p="${p}" aria-label="مقعد فارغ"></button>`;
+    const s=stu(sid),o=st[sid],w=s.name.split(' '),nm=w.length>1?`${esc(w[0])} <span class="fam">${esc(w.slice(1).join(' '))}</span><span class="ini">${esc(w[w.length-1].replace(/^ال/,'').slice(0,1))}.</span>`:esc(s.name);
+    return `<button class="st ${o.att==='A'&&!plain?'abs':''} ${S.pick===p||(S.apart||[]).includes(sid)?'pick':''} ${bad.has(sid)&&T&&!show?'bad':''}" data-p="${p}" ${plain?'':`data-st="${sid}"`} data-sid="${sid}"><span class="nm">${T&&!plain?dot(lvOf(sid)):''}${nm}</span>${plain?'':`<span class="bd">${badges(o,T)}</span>`}</button>`;};
+  const desks=[];for(let u=0;u*G.size<plan.length;u++){const mem=plan.slice(u*G.size,(u+1)*G.size);let hd='';
+    if(sh==='groups'&&mem.some(Boolean)){const tot=mem.reduce((n,x)=>n+(x?st[x].pts:0),0),v=D.set.pts[S.pv]!=null?D.set.pts[S.pv]:D.set.pts[0];
+      hd=plain||S.mode!=='pts'?`<div class="gh still"><span>المجموعة ${u+1}</span>${plain?'':`<b>${L(tot)} نقطة</b>`}</div>`
+        :`<button class="gh" data-g="${u}" aria-label="نقاط للمجموعة ${u+1}"><span>المجموعة ${u+1}</span><b>${L(tot)} نقطة</b><i>${sgn(v)} للكل</i></button>`;}
+    desks.push(`<div class="desk" data-desk="${u}" style="--dc:${G.dc}">${hd}${mem.map((x,k)=>tile(x,u*G.size+k)).join('')}</div>`);}
+  const per=G.per,rows=[];for(let r=0;r*per<desks.length;r++)rows.push(desks.slice(r*per,r*per+per));
+  const flip=show&&S.flip,body=(flip?rows.slice().reverse().map(r=>r.slice().reverse()):rows).map(r=>r.join('')).join('');
+  const front=`<div class="front">السبورة</div>`;
+  $('grid').className='room'+(flip?' flip':'');$('grid').innerHTML=(flip?'':front)+`<div class="rows" style="--per:${per}">${body}</div>`+(flip?front:'');
+}
+function swapSeats(p,q,ask){
+  const sh=shapeOf(S.cls),plan=planOf(S.cls),ap=seatOf(S.cls).apart||[],before=C.clashes(plan,sh,ap).map(String);
+  const a=plan.slice();[a[p],a[q]]=[a[q],a[p]];S.pick=null;setPlan(S.cls,a);changed();
+  const fresh=C.clashes(a,sh,ap).filter(x=>!before.includes(String(x)));
+  if(ask&&fresh.length)open('clash',{p,q,pairs:fresh});
+}
+function shClash(a){return `<h2>تنبيه: لا يجلسان معاً</h2><p>${a.pairs.map(x=>`<b>${esc(stu(x[0]).name)}</b> و<b>${esc(stu(x[1]).name)}</b>`).join('، ')} في قائمة «لا يجلسان معاً»، وهذا النقل يجعلهما متجاورين.</p>
+  <div class="rowc"><button class="act dark" data-unswap="${a.p}:${a.q}">تراجع عن النقل</button><button class="act" data-x>نعم، أجلسهما معاً</button></div>`;}
+function groupPts(u){
+  const plan=planOf(S.cls),v=D.set.pts[S.pv]!=null?D.set.pts[S.pv]:D.set.pts[0],grp='g'+C.uid(),gn='المجموعة '+(u+1),d=today();
+  const mem=plan.slice(u*4,u*4+4).filter(x=>x&&C.dayState(D,x,d).att!=='A');
+  if(!mem.length){toast('كل أفراد '+gn+' غائبون','info');return;}
+  act('نقاط '+sgn(v)+' · '+gn+' كلها',mem.map(x=>rec(x,'pts',v,{grp,gn})),[]);
+}
+let dg=null,dragged=false;
+addEventListener('pointerdown',e=>{if(!S.arr||S.apart)return;const t=e.target.closest('.room .st[data-sid]');if(t)dg={p:+t.dataset.p,x:e.clientX,y:e.clientY,el:null,id:e.pointerId,nm:stu(t.dataset.sid).name};});
+addEventListener('pointermove',e=>{if(!dg||e.pointerId!==dg.id)return;
+  if(!dg.el&&Math.hypot(e.clientX-dg.x,e.clientY-dg.y)>10){dg.el=document.createElement('div');dg.el.className='ghost';dg.el.textContent=dg.nm;document.body.appendChild(dg.el);}
+  if(dg.el){dg.el.style.left=e.clientX+'px';dg.el.style.top=e.clientY+'px';}});
+const drop=e=>{if(!dg||e.pointerId!==dg.id)return;const d=dg;dg=null;if(!d.el)return;d.el.remove();dragged=true;setTimeout(()=>{dragged=false;},80);
+  const t=document.elementFromPoint(e.clientX,e.clientY),s=t&&t.closest('.room .st[data-p]');if(e.type==='pointerup'&&s&&+s.dataset.p!==d.p)swapSeats(d.p,+s.dataset.p,true);};
+addEventListener('pointerup',drop);addEventListener('pointercancel',drop);
+function bar(){const o=S.ops[S.ops.length-1],u=$('undo');u.disabled=!o;u.innerHTML=IC.undo+`<span>${o?'تراجع: '+o.label:'لا شيء للتراجع عنه'}</span>`;
+  const n=PHONE?unsent().length+(D.pdel||[]).length:0;$('barx').innerHTML=PHONE?`<button class="act ${n?'dark':''}" data-open="out">${IC.send}<span>نقل إلى الحاسوب${n?' ('+L(n)+')':''}</span></button>`:'';}
+/* Chrome on this laptop asks again for the folder each time it opens: a clear red bar until it is given back.
+   The first tap anywhere also asks, so a lesson never runs without saving to the folder. */
+function perm(){const el=$('perm'),on=sv.state==='need'&&!!liveClasses().length;el.hidden=!on;
+  if(on)el.innerHTML=IC.folder+'<span>اضغط هنا ليستمر الحفظ في المجلد<small>يطلب Chrome إذنك مرة واحدة كلما فتحت البرنامج. ما تسجّله الآن محفوظ ولن يضيع.</small></span>';}
+function remind(){
+  const nx=C.nextLesson(D,now()),el=$('remind'),key=nx?today()+'-'+nx.p:'';
+  if(nx&&nx.mins<=10&&S.dis!==key&&liveClasses().length){
+    const m=nx.mins===1?'دقيقة واحدة':nx.mins===2?'دقيقتين':L(nx.mins)+' دقائق';
+    el.innerHTML=`<span>بعد ${m}: ${cn(C.cellName(D,nx.cell))} · الحصة ${nx.p+1} (${L(D.periods[nx.p][0])})</span><button data-dis="${key}">إخفاء</button>`;el.classList.add('on');}
+  else el.classList.remove('on');
+}
+let toastT=0;
+function toast(html,kind,openT){const t=$('toast');t.className='toast on '+(kind==='info'?'info':'');
+  t.innerHTML=`<span>${html}</span>`+(openT?`<button data-open="${openT}">عرض</button>`:'');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('on'),5000);}
+function render(){
+  const setup=!liveClasses().length;document.body.classList.toggle('setup',setup);document.body.classList.toggle('board',S.view==='board'&&!setup);
+  header();perm();remind();
+  if(setup){renderSetup();return;}
+  $('setup').innerHTML='';modes();grid();bar();
+  if(S.sheet&&['stu','tool','fu','rep','srep'].includes(S.sheet.t))sheet();
+}
+
+/* ================= first run ================= */
+function keepText(){const t=$('imTxt');if(t)S.im.text=t.value;}
+function renderSetup(){
+  keepText();
+  if(PHONE){$('setup').innerHTML=`<div class="setupw"><div class="card"><h2>استلام الصفوف من الحاسوب</h2><p>هذا البرنامج على الهاتف يسجّل أثناء الحصة ثم ينقل السجلات إلى الحاسوب. ابدأ باستلام الأسماء والجدول من الحاسوب: هناك افتح «القائمة»، ثم «الهاتف»، ثم «إرسال الصفوف إلى الهاتف».</p>
+    <div class="rowc"><button class="act dark" data-open="scan">${IC.send}استلام الصفوف من الحاسوب</button></div></div><p class="meta">الأسماء والسجلات تبقى على هذا الهاتف وعلى حاسوبك فقط.</p><p class="meta">الإصدار ${VER}</p></div>`;return;}
+  const f=sv.state==='folder';
+  $('setup').innerHTML=`<div class="setupw">
+  ${/Edg\//.test(navigator.userAgent)?`<div class="card"><p class="alert">البرنامج مفتوح الآن في Edge. إذا كنت قد بدأت استخدامه في Chrome فأغلق هذه النافذة وافتحه في Chrome، أو اختر مجلد الحفظ نفسه هنا لتظهر بياناتك.</p></div>`:''}<div class="card"><h2>1. مجلد الحفظ</h2>${sv.fs?`<p>اختر مجلداً على هذا الحاسوب مرة واحدة. يحفظ البرنامج فيه كل شيء تلقائياً، ومعه نسخة احتياطية لكل يوم تدريس. إذا كان في المجلد بيانات سابقة فستظهر مباشرة.</p>
+    <div class="rowc"><button class="act ${f?'':'dark'}" data-dir>${IC.folder}${f?'تغيير المجلد':'اختيار مجلد الحفظ'}</button>${f?'<span class="meta">تم اختيار المجلد، والحفظ يعمل.</span>':''}</div>`
+    :`<p>هذا المتصفح لا يحفظ في مجلد، فستبقى البيانات داخل المتصفح. نزّل نسخة احتياطية بانتظام من القائمة.</p>`}</div>
+  <div class="card"><h2>2. أسماء الطلاب</h2>${importUI()}</div>
+  <div class="card"><h2>لديك نسخة احتياطية سابقة؟</h2><div class="rowc"><label class="act">استيراد نسخة احتياطية<input type="file" id="bkFile" accept=".json,application/json" hidden></label></div>${S.bk?bkHTML():''}</div>
+  <p class="meta">أسماء الطلاب وسجلاتهم تبقى على هذا الجهاز فقط.</p></div>`;
+}
+
+/* ================= importing names ================= */
+function importUI(){
+  const im=S.im,cl=liveClasses();
+  return `<p>الصق الأسماء هنا، اسم في كل سطر، أو اختر ملف الأسماء. اكتب اسم الصف في سطر وحده قبل أسمائه، مثل ${L('8-8')}.</p>
+  <textarea id="imTxt" rows="6" placeholder="8-8&#10;الاسم الكامل للطالب الأول&#10;الاسم الكامل للطالب الثاني">${esc(im.text)}</textarea>
+  ${cl.length?`<div class="rowc"><span class="lbl">الأسماء التي بلا صف تُضاف إلى:</span>${cl.map(c=>`<button class="chip sm ${im.cls===c.id?'on':''}" data-imc="${c.id}">${esc(c.name)}</button>`).join('')}</div>`:''}
+  <div class="rowc"><label class="act">اختيار ملف الأسماء<input type="file" id="imFile" accept=".csv,.txt,text/csv,text/plain" hidden></label><button class="act dark" data-impv>معاينة قبل الحفظ</button></div>`+(im.pv?pvHTML(im.pv):'');
+}
+function buildPreview(){
+  keepText();const items=C.parseNames(S.im.text,S.im.cls?C.clean(cname(S.im.cls)):''),by={},order=[];let none=0;
+  items.forEach(it=>{if(!it.cls){none++;return;}if(!by[it.cls]){by[it.cls]=[];order.push(it.cls);}by[it.cls].push(it.full);});
+  const groups=order.map(cn=>{const ex=liveClasses().find(c=>C.normCls(c.name)===cn||C.clean(c.name)===cn);
+    const have=ex?D.students.filter(s=>s.c===ex.id).map(s=>C.clean(s.full)):[],fresh=by[cn].filter(f=>!have.includes(f));
+    const names=C.displayNames(have.concat(fresh)).slice(have.length);
+    return{cn,ex:ex?ex.id:null,dup:by[cn].length-fresh.length,list:fresh.map((f,i)=>({full:f,name:names[i]}))};});
+  S.im.pv={groups,none,total:groups.reduce((n,g)=>n+g.list.length,0),empty:!items.length};
+}
+function pvHTML(pv){
+  if(pv.empty)return `<p class="alert">لم أجد أسماء. اكتب اسماً في كل سطر.</p>`;
+  return pv.groups.map(g=>`<div class="box"><b>${cn(g.cn)}</b>${g.ex?'':' (صف جديد)'} · أسماء جديدة: ${L(g.list.length)}${g.dup?' · موجودة من قبل: '+L(g.dup):''}
+    <ol class="pv">${g.list.map(x=>`<li><b>${esc(x.name)}</b><small>${esc(x.full)}</small></li>`).join('')}</ol></div>`).join('')+
+    (pv.none?`<p class="alert">${L(pv.none)} من الأسماء بلا صف. اكتب اسم الصف في سطر قبلها${liveClasses().length?' أو اختر الصف أعلاه':''} ثم اضغط «معاينة» مرة أخرى.</p>`:'')+
+    (pv.total?`<p>يظهر على الشاشة الاسم الأول والأخير. يمكنك تعديل أي اسم لاحقاً.</p><div class="rowc"><button class="act dark" data-imsave>حفظ الأسماء (${L(pv.total)})</button></div>`:'');
+}
+function saveImport(){
+  const pv=S.im.pv;if(!pv||!pv.total)return;
+  pv.groups.forEach(g=>{let cid=g.ex;if(!g.list.length)return;if(!cid){cid='c'+C.uid();D.classes.push({id:cid,name:g.cn});}
+    g.list.forEach(x=>D.students.push({id:'s'+C.uid(),c:cid,full:x.full,name:x.name}));});
+  if(!C.countLessons(D)){const ids=['8-8','8-9','8-10'].map(n=>(liveClasses().find(c=>C.normCls(c.name)===n)||{}).id);if(ids.every(Boolean))D.tt=C.defaultTT(ids);}
+  C.number(D);S.im={text:'',cls:'',pv:null};if($('imTxt'))$('imTxt').value='';S.slotKey=null;autoClass();changed();toast('حُفظت الأسماء','info');sheet();
+}
+
+/* ================= sheets ================= */
+function open(t,a){S.sheet={t,a};sheet();}
+function sheet(){
+  const el=$('sheet'),pan=$('pan');if(el.classList.contains('on'))keepText();stopQR();stopScan();
+  if(!S.sheet){el.classList.remove('on');pan.innerHTML='';return;}
+  const f={book:shBook,live:shLive,out:shOut,ph:shPh,scan:shScan,rx:shRx,clash:shClash,rep:shRep,srep:shSRep,stu:shStu,tool:shTool,menu:shMenu,cls:shCls,ros:shRos,tt:shTT,set:shSet,save:shSave,fu:shFU}[S.sheet.t],h=f(S.sheet.a);
+  if(!h){S.sheet=null;el.classList.remove('on');pan.innerHTML='';return;}
+  pan.className='pan'+(['tt','cls','ros','rep','srep'].includes(S.sheet.t)?' full':'');
+  pan.innerHTML=`<button class="x" data-x aria-label="إغلاق">${IC.x}</button>`+h;el.classList.add('on');
+  if(S.sheet.t==='out')startQR();if(S.sheet.t==='scan')startScan(PHONE?'C':'R');
+  if(S.sheet.t==='live'){if(['offer','answer'].includes(LK.step)&&LK.fr)startQR(LK.fr);if(LK.step==='scan'||(PHONE&&!LK.step))startScan(PHONE?'O':'A');}
+}
+function recLbl(r){
+  if(r.k==='att')return r.v==='A'?'غائب':'متأخر';if(r.k==='tool')return'بدون '+esc(toolName(r.v));if(r.k==='part')return'مشاركة';if(r.k==='pts')return'نقاط\u00a0'+sgn(r.v)+(r.src==='ls'?' (من الدرس)':'');
+  if(r.k==='warn'){const i=D.recs.filter(x=>x.s===r.s&&x.d===r.d&&x.k==='warn').sort((a,b)=>a.t-b.t).indexOf(r);return C.LEVELS[C.level(i+1)]+(r.r?' · '+esc(r.r):'');}
+  return r.k==='note'?'ملاحظة: '+esc(r.v):'';}
+function shStu(id){
+  const s=stu(id);if(!s||s.arch)return'';
+  const d=today(),o=C.dayState(D,id,d),stk=C.streak(D,id,s.c,d),dt=now(),wk=C.iso(new Date(dt.getFullYear(),dt.getMonth(),dt.getDate()-dt.getDay()));
+  const li=(r,day)=>`<li><span>${day?dayLbl(r.d)+' · ':''}${recLbl(r)}</span><time>${hm(r.t)}</time><button class="del" data-del="${r.id}">حذف</button></li>`;
+  const td=o.recs.slice().sort((a,b)=>a.t-b.t),old=D.recs.filter(r=>r.s===id&&r.d>=wk&&r.d<d).sort((a,b)=>a.d<b.d?1:a.d>b.d?-1:a.t-b.t);
+  return `<h2>${esc(s.name)}</h2><p class="meta">${esc(s.full)} · ${cn(cname(s.c))}</p>
+  <div class="rowc">${badges(o,true)||'<span class="meta">لا شيء مسجّل اليوم</span>'}</div>
+  ${stk.n>=3?`<p class="alert">إنذار في ${L(stk.n)} حصص متتالية: ${stk.dates.map(dayLbl).join('، ')}</p>`:''}
+  <div class="rowc lapt"><span class="lbl">المستوى:</span>${[3,2,1,0].map(k=>`<button class="chip sm ${lvOf(id)===k?'on':''}" data-lv="${k}" data-id="${id}" style="${lvOf(id)===k?'background:'+LVC[k]:''}">${C.LVN[k]}</button>`).join('')}<span class="meta">${D.lv[id]!=null?'اخترته أنت · ':''}اقتراح البرنامج: ${C.LVN[C.suggestLevel(D,id,d)]}</span></div>
+  <div class="rowc lapt"><button class="act" data-open="srep" data-a="${id}">${IC.list}تقرير الطالب وتعديل سجله</button></div>
+  <h3>ملاحظة جديدة</h3><div class="inl"><input type="text" id="ntIn" placeholder="اكتب ملاحظة قصيرة"><button class="act" data-note="${id}">حفظ الملاحظة</button></div>
+  <h3>سجل اليوم</h3><ul class="hist">${td.map(r=>li(r)).join('')||'<li class="none">لا سجلات اليوم</li>'}</ul>
+  <h3>سجل هذا الأسبوع</h3><ul class="hist">${old.map(r=>li(r,1)).join('')||'<li class="none">لا سجلات سابقة هذا الأسبوع</li>'}</ul>
+  ${PHONE?'':`<h3>بيانات الطالب</h3>
+  <label class="fld">الاسم الذي يظهر على الشاشة<input type="text" data-sf="name" data-id="${id}" value="${esc(s.name)}"></label>
+  <label class="fld">الاسم الكامل<input type="text" data-sf="full" data-id="${id}" value="${esc(s.full)}"></label>
+  ${liveClasses().length>1?`<div class="rowc"><span class="lbl">نقل إلى صف:</span>${liveClasses().filter(c=>c.id!==s.c).map(c=>`<button class="chip sm" data-mv="${c.id}" data-id="${id}">${esc(c.name)}</button>`).join('')}</div>`:''}
+  <div class="rowc"><button class="del" data-sarch="${id}">أرشفة الطالب</button><span class="meta">الأرشفة تخفيه من الصف وتُبقي سجلاته.</span></div>`}`;
+}
+/* ================= reports ================= */
+const MON=['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+const dm=d=>{const[y,m,x]=d.split('-').map(Number);return L(x+'/'+m);};
+function period(){const k=S.rp.kind,t=today();
+  if(k==='day'){const days=C.classDays(D,S.cls,t,80),d=days[-S.rp.off]||t;return{from:d,to:d,lbl:dayLbl(d),last:-S.rp.off>=days.length-1};}
+  const r=C.range(k,t,S.rp.off);
+  r.lbl=k==='week'?'الأسبوع من '+dm(r.from)+' إلى '+dm(r.to):MON[+r.from.slice(5,7)-1]+' '+L(r.from.slice(0,4));return r;}
+const tl=id=>esc(toolName(id));
+const missTxt=m=>Object.keys(m).map(id=>tl(id)+(m[id]>1?' '+L('×'+m[id]):'')).join('، ');
+function repRows(cid,r){return studs(cid).map(s=>({s,x:C.summary(D,s.id,r.from,r.to),lv:lvOf(s.id)}));}
+function periodCtl(){const r=period(),k=S.rp.kind;
+  return `<div class="rowc noprint"><span class="seg">${[['day','حصة'],['week','أسبوع'],['month','شهر']].map(x=>`<button class="${k===x[0]?'on':''}" data-rk="${x[0]}">${x[1]}</button>`).join('')}</span>
+  <button class="chip sm" data-ro="-1" ${r.last?'disabled':''}>السابق</button><b>${r.lbl}</b><button class="chip sm" data-ro="1" ${S.rp.off>=0?'disabled':''}>التالي</button></div>`;}
+function chart(ser){
+  if(ser.length<2)return '<p class="meta">يظهر الرسم بعد أسبوعين من التسجيل.</p>';
+  const W=720,H=220,l=34,r=12,t=12,b=30,M=[['pts','النقاط'],['part','المشاركة'],['beh','الإنذارات والمخالفات'],['abs','الغياب']],C2={pts:'--pts',part:'--part',beh:'--warn',abs:'--att'};
+  const mx=Math.max(4,...ser.flatMap(w=>M.map(m=>w[m[0]]))),X=i=>l+(W-l-r)*i/(ser.length-1),Y=v=>t+(H-t-b)*(1-v/mx);
+  let g='';for(let k=0;k<=4;k++){const v=Math.round(mx*k/4);g+=`<line x1="${l}" x2="${W-r}" y1="${Y(v)}" y2="${Y(v)}" stroke="#E7E1D5"/><text x="${l-6}" y="${Y(v)+4}" text-anchor="end">${v}</text>`;}
+  const step=Math.ceil(ser.length/10);ser.forEach((w,i)=>{if(i%step===0||i===ser.length-1)g+=`<text x="${X(i)}" y="${H-8}" text-anchor="middle">${w.w.slice(8)}/${+w.w.slice(5,7)}</text>`;});
+  M.forEach(([k])=>{g+=`<polyline fill="none" stroke="var(${C2[k]})" stroke-width="3" stroke-linejoin="round" points="${ser.map((w,i)=>X(i)+','+Y(w[k])).join(' ')}"/>`+ser.map((w,i)=>`<circle cx="${X(i)}" cy="${Y(w[k])}" r="3.5" fill="var(${C2[k]})"/>`).join('');});
+  return `<svg class="chart" viewBox="0 0 ${W} ${H}" dir="ltr" role="img" aria-label="رسم أسبوعي">${g}</svg><div class="legend">${M.map(([k,n])=>`<span><i style="background:var(${C2[k]})"></i>${n}</span>`).join('')}</div><p class="meta">كل نقطة أسبوع، والتاريخ تحتها بداية الأسبوع.</p>`;}
+function termSeries(sids,cid){const ds=D.recs.filter(e=>e.c===cid).map(e=>e.d).sort();if(!ds.length)return[];
+  let from=ds[0];const t=today(),min=C.addDays(C.weekStart(t),-7*19);if(from<min)from=min;return C.series(D,sids,from,t);}
+function shRep(){
+  const c=cls();if(!c)return'';const r=period(),rows=repRows(S.cls,r),N=S.rp.notes,day=S.rp.kind==='day';
+  const sum=k=>rows.reduce((n,x)=>n+(typeof x.x[k]==='number'?x.x[k]:x.x[k].length),0),miss=rows.filter(x=>Object.keys(x.x.miss).length).length;
+  if(S.sort==='level')rows.sort((a,b)=>b.lv-a.lv||b.x.pts-a.x.pts);else if(S.sort==='pts')rows.sort((a,b)=>b.x.pts-a.x.pts);
+  const num=(v,c)=>v?`<b style="color:var(--${c})">${L(v)}</b>`:'';
+  const body=rows.map(({s,x,lv})=>`<tr><td class="n" data-open="srep" data-a="${s.id}">${dot(lv)}${esc(s.name)}</td>
+    <td>${x.abs.length?(day?`<b style="color:var(--att)">غائب</b>`:`<b style="color:var(--att)">${L(x.abs.length)}</b>\u00a0\u00a0<small>${x.abs.map(dm).join('، ')}</small>`):''}</td>
+    <td>${x.late.length?(day?'متأخر':num(x.late.length,'att')):''}</td>
+    <td class="${Object.keys(x.miss).length?'':'okc'}">${Object.keys(x.miss).length?`<span style="color:var(--tool)">${missTxt(x.miss)}</span>`:'كاملة'}</td>
+    <td>${num(x.part,'part')}</td><td>${x.pts?`<b style="color:var(--pts)">${sgn(x.pts)}</b>`:''}</td><td>${num(x.warn,'warn')}</td><td class="${x.viol?'hot':''}">${num(x.viol,'warn')}</td>
+    <td>${C.LVN[lv]}</td>${N?`<td class="nt">${x.notes.map(n=>(day?'':dm(n.d)+' ')+esc(n.v)).join(' · ')}</td>`:''}</tr>`).join('');
+  const st=[['att',sum('abs'),'غياب'],['att',sum('late'),'تأخر'],['tool',miss,'ينقصهم أدوات'],['part',sum('part'),'مشاركة'],['pts',sum('pts'),'نقطة'],['warn',sum('warn'),'إنذار'],['warn',sum('viol'),'مخالفة']];
+  const ids=studs(S.cls).map(s=>s.id),tr=C.trend(D,ids,today()),fu=C.followUps(D,S.cls,today());
+  const who=a=>a.map(x=>esc(stu(x.sid).name)+' (من '+L(x.before)+' إلى '+L(x.now)+')').join('، ');
+  return `<h2>تقرير ${cn(c.name)}</h2><p class="meta">${r.lbl}${D.set.teacher?' · المعلم: '+esc(D.set.teacher):''} · عدد الطلاب ${L(rows.length)}</p>${periodCtl()}
+  <div class="stats">${st.map(([c2,v,n])=>`<div><b style="color:${v?`var(--${c2})`:'#9AA1AB'}">${L(v)}</b>${n}</div>`).join('')}</div>
+  <div class="rowc noprint"><span class="lbl">الترتيب:</span>${[['name','الاسم'],['level','المستوى'],['pts','النقاط']].map(x=>`<button class="chip sm ${S.sort===x[0]?'on':''}" data-sort="${x[0]}">${x[1]}</button>`).join('')}
+    <span class="sp"></span><button class="chip sm ${N?'on':''}" data-rnotes>الملاحظات ${N?'ظاهرة':'مخفية'}</button><button class="act" data-print>طباعة أو PDF</button><button class="act" data-xls>ملف Excel</button></div>
+  <div class="tw"><table class="rp"><thead><tr><th>الطالب</th><th>الغياب</th><th>التأخر</th><th>الأدوات</th><th>المشاركة</th><th>النقاط</th><th>الإنذارات</th><th>المخالفات</th><th>المستوى</th>${N?'<th>ملاحظات</th>':''}</tr></thead><tbody>${body||'<tr><td colspan="10">لا طلاب</td></tr>'}</tbody></table></div>
+  <p class="meta noprint">اضغط على اسم الطالب لفتح تقريره وتعديل سجله.</p>
+  <h3>الصف أسبوعاً بأسبوع</h3>${chart(termSeries(ids,S.cls))}
+  <h3>اتجاه الإنذارات (آخر أربعة أسابيع مقارنة بالأربعة قبلها)</h3><p>زادت: ${who(tr.up)||'لا أحد'}</p><p>قلّت: ${who(tr.down)||'لا أحد'}</p>
+  <h3>طلاب يحتاجون متابعة</h3><p>${fu.map(x=>esc(stu(x.sid).name)+' ('+x.dates.slice().reverse().map(dm).join('، ')+')').join('، ')||'لا أحد الآن'}</p>`;}
+function shSRep(id){
+  const s=stu(id);if(!s)return'';const r=period(),x=C.summary(D,id,r.from,r.to),day=S.rp.kind==='day';
+  const recs=D.recs.filter(e=>e.s===id&&e.d>=r.from&&e.d<=r.to).sort((a,b)=>a.d<b.d?1:a.d>b.d?-1:a.t-b.t);
+  const li=e=>`<li><span>${day?'':dayLbl(e.d)+' · '}${recLbl(e)}</span><button class="del noprint" data-del="${e.id}">حذف</button></li>`;
+  const days=C.classDays(D,s.c,today(),15);if(!days.includes(S.add.d))S.add.d=days[0]||today();
+  const kinds=[['att:A','غائب'],['att:L','متأخر'],['part:1','مشاركة']].concat(D.set.pts.map(v=>['pts:'+v,'نقاط\u00a0'+sgn(v)]),[['warn:1','إنذار']],D.set.tools.filter(t=>!t.arch).map(t=>['tool:'+t.id,'بدون '+esc(t.n)]));
+  return `<h2>تقرير ${esc(s.name)}</h2><p class="meta">${esc(s.full)} · ${cn(cname(s.c))} · ${r.lbl} · المستوى: ${C.LVN[lvOf(id)]}</p>${periodCtl()}
+  <div class="stats">${[['att',x.abs.length,'غياب'],['att',x.late.length,'تأخر'],['part',x.part,'مشاركة'],['pts',x.pts,'نقطة'],['warn',x.warn,'إنذار'],['warn',x.viol,'مخالفة']].map(([c2,v,n])=>`<div><b style="color:${v?`var(--${c2})`:'#9AA1AB'}">${L(v)}</b>${n}</div>`).join('')}</div>
+  <p>الأدوات: ${Object.keys(x.miss).length?missTxt(x.miss):'كاملة'}</p>
+  <div class="rowc noprint"><button class="act" data-print>طباعة أو PDF</button><button class="act ${S.add.open?'dark':''}" data-addopen>إضافة سجل لحصة سابقة</button><button class="act" data-open="stu" data-a="${id}">صفحة الطالب</button></div>
+  ${S.add.open?`<div class="box noprint"><div class="rowc"><span class="lbl">الحصة:</span>${days.map(d=>`<button class="chip sm ${S.add.d===d?'on':''}" data-ad="${d}">${dayLbl(d)}</button>`).join('')}</div>
+    <div class="rowc"><span class="lbl">أضف:</span>${kinds.map(([k,n])=>`<button class="chip sm" data-ak="${k}">${n}</button>`).join('')}</div>
+    <div class="inl"><input type="text" id="adNote" placeholder="ملاحظة لهذه الحصة"><button class="act" data-ak="note">حفظ الملاحظة</button></div></div>`:''}
+  <h3>السجلات</h3><ul class="hist">${recs.map(li).join('')||'<li class="none">لا سجلات في هذه الفترة</li>'}</ul>
+  <h3>أسبوعاً بأسبوع</h3>${chart(termSeries([id],s.c))}`;}
+function addRec(sid,k,v){
+  const s=stu(sid),d=S.add.d;if(!s||!d)return;let rec2,lbl;
+  const base={id:C.uid(),d,p:C.periodFor(D,s.c,new Date(d+'T12:00')),c:s.c,s:sid,t:Math.max(Date.now(),now().getTime())};
+  if(k==='note'){const t=C.clean(($('adNote')||{}).value||'');if(!t)return;rec2=Object.assign(base,{k:'note',v:t});lbl='ملاحظة';}
+  else{const[kk,vv]=k.split(':');rec2=Object.assign(base,{k:kk,v:kk==='pts'?+vv:kk==='part'||kk==='warn'?1:vv});lbl=recLbl(rec2);
+    if(kk==='warn'){rec2.r='';if(C.summary(D,sid,d,d).viol){toast('سُجّلت مخالفة له في ذلك اليوم','info');return;}}}
+  act('إضافة ('+dayLbl(d)+'): '+lbl+' · '+esc(s.name),[rec2],[]);toast('أُضيف إلى '+dayLbl(d)+': '+lbl,'info');
+}
+function exportCSV(){
+  const c=cls(),r=period(),N=S.rp.notes,day=S.rp.kind==='day';
+  const rows=[['الطالب','الاسم الكامل','الغياب','أيام الغياب','التأخر','الأدوات الناقصة','المشاركة','النقاط','الإنذارات','المخالفات','المستوى'].concat(N?['ملاحظات']:[])];
+  repRows(S.cls,r).forEach(({s,x,lv})=>rows.push([s.name,s.full,x.abs.length,x.abs.join(' '),x.late.length,Object.keys(x.miss).map(id=>toolName(id)+(x.miss[id]>1?' x'+x.miss[id]:'')).join('، ')||'كاملة',x.part,x.pts,x.warn,x.viol,C.LVN[lv]].concat(N?[x.notes.map(n=>(day?'':n.d+' ')+n.v).join(' | ')]:[])));
+  download('تقرير-'+c.name+'-'+(day?r.from:S.rp.kind==='week'?'أسبوع-'+r.from:'شهر-'+r.from.slice(0,7))+'.csv',C.csv(rows),'text/csv;charset=utf-8');
+}
+function shTool(id){
+  const s=stu(id);if(!s)return'';const o=C.dayState(D,id,today());
+  return `<h2>أدوات ${esc(s.name)}</h2><p>اضغط على ما لم يحضره اليوم.</p>
+  <div class="rowc">${D.set.tools.filter(t=>!t.arch).map(t=>{const m=o.missing.includes(t.id);return `<button class="chip big ${m?'miss':''}" data-tl="${t.id}" data-id="${id}">${esc(t.n)}${m?' · لم يحضره':''}</button>`;}).join('')}</div>
+  <div class="rowc"><button class="act dark" data-x>تم</button></div>`;
+}
+function shMenu(){if(PHONE)return `<h2>القائمة</h2><div class="menu"><button class="act" data-open="scan">${IC.send}استلام الصفوف من الحاسوب</button><button class="act" data-open="out">${IC.send}نقل إلى الحاسوب</button><button class="act" data-livego>${IC.send}الاتصال المباشر بالحاسوب</button>
+  <button class="act" data-open="tt">${IC.list}الصف والجدول</button><button class="act" data-open="save">${IC.folder}النسخ الاحتياطي</button></div><p class="meta">الأسماء والجدول والمقاعد والتقارير تُدار من الحاسوب. الهاتف يعرض ما سجّلته عليه فقط.</p><p class="meta">الإصدار ${VER}</p>`;
+  return `<h2>القائمة</h2><div class="menu">
+  <button class="act" data-open="rep">${IC.list}التقارير</button><button class="act" data-open="cls">${IC.att}الصفوف والأسماء</button><button class="act" data-open="tt">${IC.list}الصف والجدول</button>
+  <button class="act" data-open="set">${IC.tool}الأدوات والنقاط وأسباب الإنذار</button><button class="act" data-open="ph">${IC.send}الهاتف</button><button class="act" data-open="save">${IC.folder}الحفظ والنسخ الاحتياطي</button></div><p class="meta">الإصدار ${VER}</p>`;}
+function shCls(){
+  const ac=D.classes.filter(c=>c.arch),as=D.students.filter(s=>s.arch&&!((D.classes.find(c=>c.id===s.c)||{}).arch));
+  return `<h2>الصفوف والأسماء</h2>`+liveClasses().map(c=>`<div class="inl"><input type="text" data-cn="${c.id}" value="${esc(c.name)}" aria-label="اسم الصف">
+    <span class="meta">عدد الطلاب: ${L(studs(c.id).length)}</span><button class="act" data-open="ros" data-a="${c.id}">تعديل الأسماء</button><button class="del" data-carch="${c.id}">أرشفة الصف</button></div>`).join('')+
+  `<div class="inl"><input type="text" id="ncIn" placeholder="اسم صف جديد" aria-label="اسم صف جديد"><button class="act" data-addc>إضافة صف</button></div>
+  <h3>إضافة أسماء</h3>${importUI()}`+
+  (ac.length||as.length?`<h3>في الأرشيف</h3><ul class="hist">${ac.map(c=>`<li><span>الصف ${cn(c.name)}</span><button class="del" data-cback="${c.id}">استعادة</button></li>`).join('')}${as.map(s=>`<li><span>${esc(s.full)} · ${cn(cname(s.c))}</span><button class="del" data-sback="${s.id}">استعادة</button></li>`).join('')}</ul>`:'');
+}
+function shRos(cid){
+  const c=D.classes.find(x=>x.id===cid);if(!c)return'';
+  return `<h2>أسماء ${cn(c.name)}</h2><p>العمود الأول هو الاسم الذي يظهر على الشاشة، والثاني الاسم الكامل. يُحفظ التعديل فور الخروج من الخانة.</p>`+
+  studs(cid).map(s=>`<div class="ros"><input type="text" data-sf="name" data-id="${s.id}" value="${esc(s.name)}" aria-label="الاسم الظاهر"><input type="text" data-sf="full" data-id="${s.id}" value="${esc(s.full)}" aria-label="الاسم الكامل"><button class="del" data-sarch="${s.id}">أرشفة</button></div>`).join('')+
+  `<div class="rowc"><button class="act" data-open="cls">رجوع إلى الصفوف</button></div>`;
+}
+function shTT(){
+  const sl=C.slotAt(D,now()),ed=S.ttEdit;
+  let g='<div class="tt"><div class="h"></div>'+D.periods.map((p,i)=>`<div class="h">${i+1}<small>${L(p[0])}</small></div>`).join('');
+  C.DAYS.forEach((dn,d)=>{g+=`<div class="h">${dn}</div>`+D.tt[d].map((c,p)=>{const txt=esc(C.cellName(D,c));
+    return ed?`<button class="c ed" data-tc="${d}-${p}" aria-label="${dn} الحصة ${p+1}">${txt||'–'}</button>`:`<div class="c ${sl&&sl.day===d&&sl.p===p?'now':''} ${c?'':'off'}">${txt}</div>`;}).join('');});
+  return `<h2>الصف والجدول</h2>
+  <div class="rowc"><span class="lbl">الصف المعروض الآن:</span>${liveClasses().map(c=>`<button class="chip sm ${c.id===S.cls?'on':''}" data-pick="${c.id}">${esc(c.name)}</button>`).join('')}</div>
+  <p>يختار البرنامج صف الحصة الحالية تلقائياً من الجدول، ويمكنك تغييره من هنا في أي وقت.</p>${g}</div>
+  <div class="rowc">${PHONE?'':`<button class="act ${ed?'dark':''}" data-tted>${ed?'انتهيت من التعديل':'تعديل الجدول'}</button>`}<button class="act" data-ics>ملف تذكير للتقويم</button></div>`+
+  (ed?`<p>اضغط على أي خانة لتغييرها: صف، ثم الصف الذي بعده، ثم «${esc(D.set.other)}»، ثم فارغة.</p>
+    <label class="fld">اسم الحصة التي ليست صفاً (لا تُسجَّل فيها متابعة)<input type="text" id="otIn" value="${esc(D.set.other)}"></label>
+    <h3>أوقات الحصص</h3>${D.periods.map((p,i)=>`<div class="inl"><span class="lbl">الحصة ${i+1}</span><input type="time" data-pt="${i}-0" value="${p[0]}" aria-label="بداية الحصة ${i+1}"><input type="time" data-pt="${i}-1" value="${p[1]}" aria-label="نهاية الحصة ${i+1}"></div>`).join('')}`
+   :`<p>عدد الحصص في الأسبوع: ${L(C.countLessons(D))}. يظهر تنبيه في أعلى الشاشة قبل كل حصة بعشر دقائق ما دام البرنامج مفتوحاً. ليصلك التنبيه والبرنامج مغلق، افتح ملف التذكير على هاتفك وأضفه إلى التقويم.</p>`);
+}
+function shSet(){
+  return `<h2>الأدوات والنقاط وأسباب الإنذار</h2>
+  <label class="fld">اسم المعلم (يظهر في التقارير)<input type="text" id="setT" value="${esc(D.set.teacher)}"></label>
+  <h3>الأدوات المطلوبة</h3>${D.set.tools.filter(t=>!t.arch).map(t=>`<div class="inl"><input type="text" data-tn="${t.id}" value="${esc(t.n)}" aria-label="اسم الأداة"><button class="del" data-tdel="${t.id}">حذف</button></div>`).join('')}
+  <div class="inl"><input type="text" id="ntlIn" placeholder="أداة جديدة" aria-label="أداة جديدة"><button class="act" data-addt>إضافة أداة</button></div>
+  <h3>قيم النقاط</h3><label class="fld">أرقام تفصل بينها فاصلة<input type="text" id="setP" dir="ltr" value="${esc(D.set.pts.join(', '))}"></label>
+  <h3>أسباب الإنذار</h3><label class="fld">سبب في كل سطر<textarea id="setR" rows="5">${esc(D.set.reasons.join('\n'))}</textarea></label>`;
+}
+function bkHTML(){const b=S.bk;return `<div class="box"><p>في الملف: ${L(b.classes.filter(c=>!c.arch).length)} صفوف، ${L(b.students.filter(s=>!s.arch).length)} طالباً، ${L(b.recs.length)} سجلاً${b.saved?'، آخر حفظ '+dayLbl(C.iso(new Date(b.saved))):''}.</p>
+  <div class="rowc"><button class="act dark" data-bk="merge">دمج مع البيانات الحالية</button><button class="act" data-bk="replace">استبدال البيانات الحالية</button><button class="act" data-bk="cancel">إلغاء</button></div></div>`;}
+function shSave(){
+  const st={folder:'يُحفظ كل تغيير تلقائياً في المجلد الذي اخترته، في الملف hub-data.json، مع نسخة لكل يوم في المجلد backups.',
+    browser:'لم تختر مجلداً بعد. البيانات محفوظة داخل هذا المتصفح فقط.',nofs:'هذا المتصفح لا يحفظ في مجلد. البيانات محفوظة داخل المتصفح فقط.',
+    need:'يحتاج المتصفح إذنك مرة أخرى للحفظ في المجلد.',error:'تعذّر الحفظ في المجلد. البيانات محفوظة داخل المتصفح إلى أن يعود المجلد.'}[sv.state];
+  return `<h2>الحفظ والنسخ الاحتياطي</h2><p class="${sv.state==='error'||sv.state==='need'?'alert':''}">${st}</p>
+  <div class="rowc">${sv.state==='need'?`<button class="act dark" data-regrant>متابعة الحفظ في المجلد</button>`:''}${sv.fs?`<button class="act" data-dir>${IC.folder}${sv.dir?'تغيير المجلد':'اختيار مجلد الحفظ'}</button>`:''}</div>
+  <h3>نسخة احتياطية</h3><div class="rowc"><button class="act" data-bkdl>تنزيل نسخة احتياطية</button><label class="act">استيراد نسخة احتياطية<input type="file" id="bkFile" accept=".json,application/json" hidden></label></div>${S.bk?bkHTML():''}
+  <p>أسماء الطلاب وسجلاتهم تبقى على هذا الجهاز فقط، ولا تُرسل إلى أي مكان.</p>`;
+}
+function shFU(){
+  const f=C.followUps(D,S.cls,today());
+  return `<h2>طلاب يحتاجون متابعة</h2><p>طلاب حصلوا على إنذار في ثلاث حصص متتالية أو أكثر في ${cn(cname(S.cls))}.</p><ul class="fu">${f.map(x=>`<li><span><b>${esc(stu(x.sid).name)}</b><br><small class="meta">${x.dates.map(dayLbl).join('، ')}</small></span><button class="act" data-open="stu" data-a="${x.sid}">السجل</button></li>`).join('')||'<li class="none">لا أحد الآن</li>'}</ul>`;
+}
+
+/* ================= lessons: one class list, and points that come back ================= */
+/* The lesson sites keep their classes in this browser under 'lessonClasses1'. The Hub writes its own classes there
+   (present students only, so the random picker skips whoever is absent today) and reads back the points a student
+   earned inside a lesson. Nothing in the lesson files changes. */
+const LKEY='lessonClasses1',TEAM=[['الأحمر','#C93A26','#FFFFFF'],['الأزرق','#2374C6','#FFFFFF'],['الأخضر','#18874A','#FFFFFF'],['الأصفر','#F2B61B','#1D232C']];
+const mkTeams=()=>TEAM.map(t=>({name:'الفريق '+t[0],c:t[1],ink:t[2],score:0}));
+let syncing=false;
+function lessonSync(){
+  if(PHONE||syncing||!liveClasses().length)return;let raw=null,db=null;try{raw=localStorage.getItem(LKEY);db=JSON.parse(raw||'null');}catch(e){}
+  if(!db||!Array.isArray(db.classes)||!db.classes.length)db={cur:'quick',classes:[{id:'quick',name:'فرق سريعة',students:[],teams:mkTeams(),picked:[]}]};
+  const d=today(),got=[];D.lp=D.lp||{};let lpChanged=false;
+  db.classes.forEach(c=>{if(!/^hub-/.test(c.id))return;(c.students||[]).forEach(s=>{
+    const st=(s.h&&stu(s.h))||D.students.find(x=>'hub-'+x.c===c.id&&x.name===s.n);if(!st)return;
+    const p=s.p||0,seen=D.lp[st.id]||0;if(p>seen)got.push({st,v:p-seen});if(p!==seen){D.lp[st.id]=p;lpChanged=true;}});});
+  const live=liveClasses();db.classes=db.classes.filter(c=>!/^hub-/.test(c.id)||live.some(x=>'hub-'+x.id===c.id));
+  live.forEach(hc=>{let c=db.classes.find(x=>x.id==='hub-'+hc.id);if(!c){c={id:'hub-'+hc.id,name:hc.name,students:[],teams:mkTeams(),picked:[]};db.classes.push(c);}
+    c.name=hc.name;if(!Array.isArray(c.teams)||!c.teams.length)c.teams=mkTeams();
+    const old=(c.students||[]).concat(c.away||[]),nt=c.teams.length;
+    const all=studs(hc.id).map((s,i)=>{const o=old.find(x=>x.h===s.id)||old.find(x=>!x.h&&x.n===s.name)||{t:i%nt,p:0};return{n:s.name,t:o.t>=0&&o.t<nt?o.t:i%nt,p:o.p||0,h:s.id};});
+    const abs=new Set(all.filter(x=>C.dayState(D,x.h,d).att==='A').map(x=>x.h));
+    c.students=all.filter(x=>!abs.has(x.h));c.away=all.filter(x=>abs.has(x.h));c.picked=(c.picked||[]).filter(n=>c.students.some(s=>s.n===n));});
+  if(cls()&&S.lcur!==S.cls){S.lcur=S.cls;db.cur='hub-'+S.cls;}
+  const out=JSON.stringify(db);if(out!==raw)try{localStorage.setItem(LKEY,out);}catch(e){}
+  if(got.length){syncing=true;const dt=now();
+    try{act('نقاط من الدرس · '+(got.length===1?esc(got[0].st.name):L(got.length)+' طلاب'),got.map(g=>Object.assign(rec(g.st.id,'pts',g.v),{c:g.st.c,p:C.periodFor(D,g.st.c,dt),src:'ls'})),[]);
+      toast('وصلت من الدرس: '+got.map(g=>esc(g.st.name)+' '+sgn(g.v)).join('، '),'info');}finally{syncing=false;}}
+  else if(lpChanged)persistLocal();
+}
+addEventListener('storage',e=>{if(e.key===LKEY)lessonSync();});
+addEventListener('focus',lessonSync);document.addEventListener('visibilitychange',()=>{if(!document.hidden)lessonSync();});
+
+/* ================= phone ↔ laptop ================= */
+const PHONE_URL='https://hewhowalks-cloud.github.io/science-hub-phone/';
+function drawQR(cv,text){const q=QRGEN(text,'L'),n=q.getModuleCount(),m=4,s=Math.max(3,Math.floor(900/(n+2*m))),W=(n+2*m)*s;cv.width=cv.height=W;const c=cv.getContext('2d');
+  c.fillStyle='#fff';c.fillRect(0,0,W,W);c.fillStyle='#000';for(let y=0;y<n;y++)for(let x=0;x<n;x++)if(q.isDark(y,x))c.fillRect((x+m)*s,(y+m)*s,s,s);}
+const unsent=()=>D.recs.filter(r=>!r.sent);
+let qr=null;
+function stopQR(){if(qr){clearInterval(qr.timer);qr=null;}}
+function startQR(given){stopQR();const cv=$('qr');if(!cv)return;
+  const fr=given||(PHONE?C.frames('R',C.packRecs(D,S.out.recs,S.out.dels),280):C.frames('C',C.packRoster(D),700));
+  qr={fr,i:0};const show=()=>{drawQR(cv,qr.fr[qr.i]);$('qrLbl').innerHTML='الرمز '+L(qr.i+1)+' من '+L(qr.fr.length);qr.i=(qr.i+1)%qr.fr.length;};
+  show();if(fr.length>1)qr.timer=setInterval(show,PHONE?900:750);}
+function shOut(){
+  if(PHONE){const recs=unsent(),dels=(D.pdel||[]).slice();S.out={recs,dels};
+    if(!recs.length&&!dels.length)return `<h2>نقل إلى الحاسوب</h2><p>لا سجلات جديدة للنقل. كل ما سجّلته على الهاتف وصل إلى الحاسوب.</p><div class="rowc"><button class="act dark" data-x>تم</button></div>`;
+    return `<h2>نقل إلى الحاسوب</h2><p>على الحاسوب: «القائمة»، ثم «الهاتف»، ثم «استلام من الهاتف». وجّه هذه الشاشة إلى كاميرا الحاسوب وارفع إضاءة الهاتف. عدد السجلات: ${L(recs.length)}.</p>
+      <canvas id="qr"></canvas><p class="meta ctr" id="qrLbl"></p>
+      <div class="rowc"><button class="act dark" data-sent>وصلت إلى الحاسوب</button><button class="act" data-x>ليس الآن</button></div><p class="meta">اضغط «وصلت إلى الحاسوب» بعد أن يكتب الحاسوب أنه استلمها. إن لم تضغط، تبقى السجلات هنا وتُرسل في المرة القادمة دون تكرار.</p>`;}
+  return `<h2>إرسال الصفوف إلى الهاتف</h2><p>على الهاتف: افتح البرنامج، ثم «استلام الصفوف من الحاسوب»، ووجّه كاميرا الهاتف إلى هذا الرمز حتى يكتمل. يحمل الرمز الأسماء والجدول وترتيب المقاعد، ولا يحمل أي سجلات.</p>
+    <canvas id="qr" class="big"></canvas><p class="meta ctr" id="qrLbl"></p><div class="rowc"><button class="act dark" data-x>تم</button></div><p class="meta">كرّر هذا عند تغيير الأسماء أو الجدول أو المقاعد فقط.</p>`;}
+/* the book folder must sit beside hub.html: science-hub/science-g8/index.html. Checked without opening it. */
+function hasFile(u){return new Promise(r=>{const el=document.createElement('link');let done=0;const fin=v=>{if(!done){done=1;el.remove();r(v);}};
+  el.rel='preload';el.as='script';el.href=u+'?'+Date.now();el.onload=()=>fin(true);el.onerror=()=>fin(false);setTimeout(()=>fin(false),4000);document.head.appendChild(el);});}
+function checkBook(){if(PHONE)return;hasFile('science-g8/index.html').then(v=>{S.book=v;});}
+function shBook(){
+  const here=decodeURIComponent(location.href.replace(/^file:\/\/\/?/,'').replace(/[#?].*$/,'').replace(/\/[^\/]*$/,'')).replace(/\//g,'\\');
+  return `<h2>لم أجد مجلد الدروس</h2><p>زر «الدروس» يفتح الملف <bdi dir="ltr">science-g8\\index.html</bdi>، ويجب أن يكون مجلد <bdi dir="ltr">science-g8</bdi> داخل المجلد الذي فيه هذا البرنامج نفسه:</p>
+  <p><bdi dir="ltr"><b>${esc(here)}\\science-g8\\index.html</b></bdi></p>
+  <p>إذا كان مجلد <bdi dir="ltr">science-g8</bdi> في مكان آخر، انقله إلى هذا المجلد، ثم اضغط «حاول مرة أخرى».</p>
+  <div class="rowc"><button class="act dark" data-bookre>حاول مرة أخرى</button><button class="act" data-x>إغلاق</button></div>`;}
+function shPh(){return `<h2>الهاتف</h2><p>الهاتف يسجّل أثناء الحصة، ثم تنقل سجلاته إلى هذا الحاسوب بالكاميرا، دون إنترنت.</p><div class="menu">
+  <button class="act" data-open="scan">${IC.send}استلام من الهاتف</button><button class="act" data-open="out">${IC.att}إرسال الصفوف إلى الهاتف</button><button class="act" data-livego>${IC.send}الاتصال المباشر بالهاتف</button></div>
+  <h3>أول مرة على الهاتف</h3><p>افتح هذا العنوان في Chrome على الهاتف وهو متصل بالإنترنت، ثم من قائمة Chrome اختر «إضافة إلى الشاشة الرئيسية». بعدها يعمل دون إنترنت.</p><p><bdi dir="ltr"><b>${PHONE_URL}</b></bdi></p>
+  <p class="meta">${window.jsQR||S.jsq==='ready'?'قارئ الرموز جاهز على هذا الحاسوب.':S.jsq==='fail'?'قارئ الرموز لم يُحمَّل بعد: يحتاج هذا الحاسوب إلى الإنترنت مرة واحدة فقط.':'جارٍ تجهيز قارئ الرموز…'}</p>`;}
+function shScan(){return `<h2>${PHONE?'استلام الصفوف من الحاسوب':'استلام من الهاتف'}</h2><p>${PHONE?'على الحاسوب: «القائمة»، ثم «الهاتف»، ثم «إرسال الصفوف إلى الهاتف». وجّه الكاميرا إلى الرمز.':'على الهاتف اضغط «نقل إلى الحاسوب»، ثم قرّب شاشته من كاميرا هذا الحاسوب.'}</p>
+  <video id="scVid" playsinline muted></video><p class="scst" id="scSt" role="status">جارٍ فتح الكاميرا…</p><div class="rowc"><button class="act" data-x>إلغاء</button></div>`;}
+function shRx(a){return `<h2>استُلمت سجلات الهاتف</h2><div class="stats"><div><b style="color:var(--part)">${L(a.added)}</b>سجلاً جديداً</div><div><b>${L(a.dup)}</b>مكرراً لم يُضف</div>${a.removed?`<div><b>${L(a.removed)}</b>حُذف من الهاتف</div>`:''}</div>
+  ${a.unknown?`<p class="alert">${L(a.unknown)} من السجلات لطلاب غير معروفين هنا. أرسل الصفوف إلى الهاتف من جديد.</p>`:''}
+  <p>اضغط الآن «وصلت إلى الحاسوب» على الهاتف.</p><div class="rowc"><button class="act dark" data-x>تم</button></div>`;}
+/* the QR reader: the browser's own when it has one; otherwise jsQR, taken from a file beside the Hub, or from this browser's
+   store, or once from the internet and then kept */
+const JSQR='https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js';
+function inject(code){const s=document.createElement('script');s.textContent=code;document.head.appendChild(s);s.remove();return !!window.jsQR;}
+async function ensureJsQR(){
+  if(window.jsQR)return true;
+  await new Promise(r=>{const s=document.createElement('script');s.src='jsQR.js';s.onload=s.onerror=()=>{s.remove();r();};document.head.appendChild(s);});
+  if(window.jsQR)return true;
+  try{const c=await kvGet('jsqr');if(c&&inject(c))return true;}catch(e){}
+  const res=await fetch(JSQR);if(!res.ok)throw new Error('jsqr');const code=await res.text();
+  if(!inject(code))throw new Error('jsqr');try{await kvSet('jsqr',code);}catch(e){}return true;}
+let scan=null;
+function stopScan(){if(scan){scan.on=false;if(scan.stream)scan.stream.getTracks().forEach(t=>t.stop());scan=null;}}
+async function startScan(want){
+  stopScan();const my=scan={on:true,want,col:C.collector()},st=$('scSt'),v=$('scVid'),say=h=>{if(my.on&&$('scSt'))$('scSt').innerHTML=h;};
+  try{my.stream=await navigator.mediaDevices.getUserMedia({audio:false,video:Object.assign({width:{ideal:1280},height:{ideal:720}},PHONE?{facingMode:'environment'}:{})});}
+  catch(e){say('تعذّر فتح الكاميرا. اسمح للبرنامج باستخدامها من شريط العنوان، ثم أعد المحاولة.');return;}
+  if(!my.on){my.stream.getTracks().forEach(t=>t.stop());return;}
+  v.srcObject=my.stream;try{await v.play();}catch(e){}
+  let det=null;if('BarcodeDetector' in window){try{if((await BarcodeDetector.getSupportedFormats()).includes('qr_code'))det=new BarcodeDetector({formats:['qr_code']});}catch(e){}}
+  if(!det){say('جارٍ تجهيز قارئ الرموز…');try{await ensureJsQR();}catch(e){say('قارئ الرموز غير موجود على هذا الجهاز بعد. صِل الجهاز بالإنترنت مرة واحدة ثم أعد المحاولة.');return;}}
+  say(PHONE?'وجّه الكاميرا إلى الرمز على شاشة الحاسوب.':'قرّب شاشة الهاتف من الكاميرا.');
+  const cv=document.createElement('canvas'),cx=cv.getContext('2d',{willReadFrequently:true});
+  const loop=async()=>{if(!my.on)return;let text='';
+    try{if(v.videoWidth){cv.width=v.videoWidth;cv.height=v.videoHeight;cx.drawImage(v,0,0);
+      if(det){const r=await det.detect(cv);if(r&&r[0])text=r[0].rawValue;}else{const d=cx.getImageData(0,0,cv.width,cv.height),r=window.jsQR(d.data,d.width,d.height);if(r&&r.data)text=r.data;}}}catch(e){}
+    if(text&&rx(text))return;setTimeout(loop,120);};
+  loop();}
+function rx(text){
+  if(!scan)return false;const o=scan.col.add(text);if(!o)return false;
+  if(o.kind!==scan.want){if($('scSt'))$('scSt').textContent=PHONE?'هذا رمز سجلات، وليس رمز الصفوف.':'هذا رمز الصفوف، وليس سجلات الهاتف.';return false;}
+  if($('scSt'))$('scSt').innerHTML='استُلم '+L(o.have)+' من '+L(o.total);if(!o.done)return false;
+  stopScan();
+  if(o.kind==='O'){liveAnswer(o.text).catch(e=>{console.warn(e);LK.step='fail';sheet();});return true;}
+  if(o.kind==='A'){liveAccept(o.text);return true;}
+  try{if(PHONE){C.applyRoster(D,C.unpackRoster(o.text));S.slotKey=null;S.sheet=null;autoClass();changed();sheet();
+      toast('استُلمت الصفوف: '+L(liveClasses().length)+' صفوف و'+L(D.students.length)+' طالباً','info');}
+    else{const u=C.unpackRecs(o.text,D),r=C.receive(D,u);S.ops=[];changed();open('rx',Object.assign(r,{unknown:u.unknown}));}}
+  catch(e){console.warn(e);S.sheet=null;sheet();toast('الرمز غير صالح. أعد المحاولة.','warn');}
+  return true;}
+
+/* ================= direct live link (approach B) =================
+   The laptop shows an "offer" code, the phone answers with its own code, and the two connect directly over the
+   school network with no server. While connected, every tap on the phone appears on the laptop at once. If the
+   network does not allow it, nothing is lost: the QR hand-off keeps working. */
+const LK={state:'off',step:'',pc:null,dc:null,fr:null,inflight:null,t0:0,timer:0};
+function liveOn(){return LK.state==='on';}
+function liveClose(quiet){clearTimeout(LK.timer);try{LK.dc&&LK.dc.close();}catch(e){}try{LK.pc&&LK.pc.close();}catch(e){}
+  const was=LK.state==='on';Object.assign(LK,{state:'off',pc:null,dc:null,fr:null,inflight:null});
+  if(was&&!quiet)toast(PHONE?'انقطع الاتصال المباشر. السجلات محفوظة على الهاتف وتُنقل لاحقاً.':'انقطع الاتصال المباشر بالهاتف.','warn');header();bar();}
+function newPC(){const pc=new RTCPeerConnection({iceServers:navigator.onLine?[{urls:'stun:stun.l.google.com:19302'}]:[]});
+  pc.onconnectionstatechange=()=>{if(['failed','closed'].includes(pc.connectionState)&&LK.pc===pc)liveClose();};return pc;}
+const gathered=pc=>new Promise(r=>{if(pc.iceGatheringState==='complete')return r();const t=setTimeout(r,4000);
+  pc.addEventListener('icegatheringstatechange',()=>{if(pc.iceGatheringState==='complete'){clearTimeout(t);r();}});});
+function wire(dc){LK.dc=dc;
+  dc.onopen=()=>{LK.state='on';LK.step='on';clearTimeout(LK.timer);header();bar();if(S.sheet&&S.sheet.t==='live')sheet();
+    toast(PHONE?'متصل بالحاسوب. ما تسجّله يظهر على السبورة مباشرة.':'متصل بالهاتف مباشرة.','info');if(PHONE)liveSend();};
+  dc.onclose=()=>{if(LK.dc===dc)liveClose();};
+  dc.onmessage=e=>{let m;try{m=JSON.parse(e.data);}catch(x){return;}
+    if(!PHONE&&m.r){try{const u=C.unpackRecs(m.r,D),res=C.receive(D,u);dc.send(JSON.stringify({ack:u.recs.map(r=>r.id),del:u.dels}));
+        if(res.added||res.removed)changed();if(u.unknown)toast('وصلت سجلات لطلاب غير معروفين هنا. أرسل الصفوف إلى الهاتف من جديد.','warn');}catch(x){console.warn(x);}}
+    if(PHONE&&m.ack){const a=new Set(m.ack);D.recs.forEach(r=>{if(a.has(r.id))r.sent=true;});D.pdel=(D.pdel||[]).filter(x=>!(m.del||[]).includes(x));
+      LK.inflight=null;persistLocal();bar();liveSend();}};}
+/* phone: send whatever the laptop does not have yet; one batch at a time */
+function liveSend(){if(!PHONE||!liveOn()||LK.inflight)return;const recs=unsent(),dels=(D.pdel||[]).slice();if(!recs.length&&!dels.length)return;
+  LK.inflight=1;try{LK.dc.send(JSON.stringify({r:C.packRecs(D,recs,dels)}));}catch(e){LK.inflight=null;}
+  setTimeout(()=>{if(LK.inflight){LK.inflight=null;liveSend();}},4000);}
+async function liveStart(){liveClose(true);LK.state='wait';LK.step='offer';LK.t0=Date.now();
+  const pc=LK.pc=newPC();wire(pc.createDataChannel('hub',{ordered:true}));
+  await pc.setLocalDescription(await pc.createOffer());await gathered(pc);if(LK.pc!==pc)return;
+  LK.fr=C.frames('O',JSON.stringify({t:'offer',s:pc.localDescription.sdp}),700);sheet();}
+async function liveAnswer(text){liveClose(true);LK.state='wait';LK.t0=Date.now();
+  const pc=LK.pc=newPC();pc.ondatachannel=e=>wire(e.channel);
+  await pc.setRemoteDescription({type:'offer',sdp:JSON.parse(text).s});await pc.setLocalDescription(await pc.createAnswer());await gathered(pc);if(LK.pc!==pc)return;
+  LK.fr=C.frames('A',JSON.stringify({t:'answer',s:pc.localDescription.sdp}),280);LK.step='answer';sheet();
+  LK.timer=setTimeout(()=>{if(LK.state!=='on'){LK.step='fail';liveClose(true);if(S.sheet&&S.sheet.t==='live')sheet();}},45000);}
+async function liveAccept(text){try{await LK.pc.setRemoteDescription({type:'answer',sdp:JSON.parse(text).s});}catch(e){LK.step='fail';sheet();return;}
+  LK.step='wait';sheet();LK.timer=setTimeout(()=>{if(LK.state!=='on'){LK.step='fail';liveClose(true);if(S.sheet&&S.sheet.t==='live')sheet();}},15000);}
+function shLive(){
+  const st=LK.step,fail=`<p class="alert">لم يتصل الجهازان. غالباً شبكة المدرسة تمنع الاتصال المباشر بين الأجهزة، أو أن الهاتف والحاسوب ليسا على الشبكة نفسها. استمر بالنقل بالرمز بعد الحصة، فهو يعمل دائماً.</p>`;
+  if(st==='on')return `<h2>الاتصال المباشر</h2><p class="okc">${PHONE?'الهاتف متصل بالحاسوب. كل ما تسجّله يظهر على السبورة فوراً.':'الحاسوب متصل بالهاتف. ما يسجّله الهاتف يظهر هنا فوراً.'}</p>
+    <p class="meta">أبقِ البرنامج مفتوحاً على الجهازين. إذا انقطع الاتصال تبقى السجلات على الهاتف وتُنقل بالرمز لاحقاً.</p><div class="rowc"><button class="act dark" data-x>تم</button><button class="act" data-liveoff>قطع الاتصال</button></div>`;
+  if(st==='fail')return `<h2>الاتصال المباشر</h2>${fail}<div class="rowc"><button class="act dark" data-livego>حاول مرة أخرى</button><button class="act" data-x>إغلاق</button></div>`;
+  if(PHONE){
+    if(st==='answer')return `<h2>الاتصال المباشر: الخطوة 2</h2><p>على الحاسوب اضغط «التالي: قراءة رمز الهاتف»، ثم قرّب هذه الشاشة من كاميرا الحاسوب.</p><canvas id="qr"></canvas><p class="meta ctr" id="qrLbl"></p><p class="scst">بانتظار الاتصال…</p>`;
+    return `<h2>الاتصال المباشر: الخطوة 1</h2><p>على الحاسوب: «القائمة»، ثم «الهاتف»، ثم «الاتصال المباشر». وجّه الكاميرا إلى الرمز على الحاسوب. يجب أن يكون الجهازان على شبكة Wi-Fi نفسها.</p>
+      <video id="scVid" playsinline muted></video><p class="scst" id="scSt" role="status">جارٍ فتح الكاميرا…</p><div class="rowc"><button class="act" data-x>إلغاء</button></div>`;}
+  if(st==='offer')return `<h2>الاتصال المباشر: الخطوة 1</h2><p>على الهاتف: «القائمة»، ثم «الاتصال المباشر»، ووجّه كاميرا الهاتف إلى هذا الرمز. عندما يعرض الهاتف رمزه، اضغط «التالي».</p>
+    <canvas id="qr" class="big"></canvas><p class="meta ctr" id="qrLbl"></p><div class="rowc"><button class="act dark" data-livenext>التالي: قراءة رمز الهاتف</button><button class="act" data-x>إلغاء</button></div>`;
+  if(st==='scan')return `<h2>الاتصال المباشر: الخطوة 2</h2><p>قرّب شاشة الهاتف من كاميرا الحاسوب.</p><video id="scVid" playsinline muted></video><p class="scst" id="scSt" role="status">جارٍ فتح الكاميرا…</p><div class="rowc"><button class="act" data-x>إلغاء</button></div>`;
+  if(st==='wait')return `<h2>الاتصال المباشر</h2><p class="scst">جارٍ الاتصال بالهاتف…</p>`;
+  return `<h2>الاتصال المباشر</h2><p class="scst">جارٍ التجهيز…</p>`;}
+
+/* ================= events ================= */
+function readFile(inp,cb){const f=inp.files&&inp.files[0];if(!f)return;const r=new FileReader();r.onload=()=>cb(new Uint8Array(r.result));r.readAsArrayBuffer(f);inp.value='';}
+function refresh(){if(document.body.classList.contains('setup'))renderSetup();else sheet();}
+document.addEventListener('click',e=>{if(sv.state==='need'&&!e.target.closest('[data-regrant]'))regrant();},true);
+document.addEventListener('click',e=>{
+  const t=e.target,q=s=>t.closest(s);let el;
+  if(t.id==='sheet'||q('[data-x]')){S.sheet=null;S.ttEdit=false;sheet();return;}
+  if(el=q('[data-lay]')){S.lay=el.dataset.lay;grid();return;}
+  if(q('[data-flip]')){S.flip=!S.flip;grid();return;}
+  if(q('[data-arr]')){S.arr=!S.arr;S.pick=null;S.apart=null;if(S.arr&&!D.seat[S.cls])setPlan(S.cls,planOf(S.cls));grid();return;}
+  if(el=q('[data-shape]')){const pl=planOf(S.cls);seatOf(S.cls).shape=el.dataset.shape;if(!seatOf(S.cls).plans[el.dataset.shape])setPlan(S.cls,C.seatPlan(D,S.cls,el.dataset.shape));S.pick=null;changed();return;}
+  if(q('[data-apart]')){S.apart=S.apart?null:[];grid();return;}
+  if(el=q('[data-unapart]')){seatOf(S.cls).apart.splice(+el.dataset.unapart,1);changed();return;}
+  if(el=q('[data-unswap]')){const[a,b]=el.dataset.unswap.split(':').map(Number);S.sheet=null;sheet();swapSeats(a,b,false);return;}
+  if(el=q('[data-g]')){groupPts(+el.dataset.g);return;}
+  if(S.arr&&(el=q('.room .st[data-p]'))){if(dragged)return;const p=+el.dataset.p,sid=el.dataset.sid;
+    if(S.apart){if(!sid)return;if(!S.apart.includes(sid))S.apart.push(sid);if(S.apart.length===2){const ap=seatOf(S.cls).apart,k=S.apart.slice().sort().join();
+        if(!ap.some(x=>x.slice().sort().join()===k))ap.push(S.apart);S.apart=null;changed();}else grid();return;}
+    if(S.pick==null){if(sid){S.pick=p;grid();}}else if(p===S.pick){S.pick=null;grid();}else swapSeats(S.pick,p,true);return;}
+  if(el=q('[data-book]')){if(S.book===false){e.preventDefault();checkBook();open('book');}return;}
+  if(q('[data-bookre]')){hasFile('science-g8/index.html').then(v=>{S.book=v;if(v){$('pan').innerHTML=`<button class="x" data-x aria-label="إغلاق">${IC.x}</button><h2>وجدت مجلد الدروس</h2><div class="rowc"><a class="act dark" href="science-g8/index.html" target="_blank" rel="noopener" data-x>${IC.book}افتح الدروس</a></div>`;}else toast('ما زال المجلد غير موجود في هذا المكان','warn');});return;}
+  if(el=q('[data-more]')){e.preventDefault();open('stu',el.dataset.more);return;}
+  if(el=q('[data-st]')){tap(el.dataset.st);return;}
+  if(el=q('[data-sort]')){S.sort=el.dataset.sort;grid();sheet();return;}
+  if(el=q('[data-lv]')){const k=+el.dataset.lv,id=el.dataset.id;if(D.lv[id]===k)delete D.lv[id];else D.lv[id]=k;changed();sheet();return;}
+  if(el=q('[data-rk]')){S.rp.kind=el.dataset.rk;S.rp.off=0;sheet();return;}
+  if(el=q('[data-ro]')){S.rp.off=Math.min(0,S.rp.off+ +el.dataset.ro);sheet();return;}
+  if(q('[data-rnotes]')){S.rp.notes=!S.rp.notes;sheet();return;}
+  if(q('[data-print]')){window.print();return;}
+  if(q('[data-xls]')){exportCSV();return;}
+  if(el=q('[data-ad]')){S.add.d=el.dataset.ad;sheet();return;}
+  if(el=q('[data-ak]')){addRec(S.sheet.a,el.dataset.ak,el.dataset.av);return;}
+  if(q('[data-addopen]')){S.add.open=!S.add.open;sheet();return;}
+  if(el=q('[data-mode]')){S.mode=el.dataset.mode;modes();if(S.lay!=='list')grid();return;}
+  if(el=q('[data-pv]')){S.pv=+el.dataset.pv;modes();if(S.lay!=='list')grid();return;}
+  if(el=q('[data-rs]')){S.reason=+el.dataset.rs;modes();return;}
+  if(q('#undo')){undo();return;}
+  if(el=q('[data-view]')){S.view=el.dataset.view;S.sheet=null;sheet();render();return;}
+  if(el=q('[data-dis]')){S.dis=el.dataset.dis;remind();return;}
+  if(q('[data-regrant]')){regrant();return;}
+  if(el=q('[data-open]')){if(el.dataset.open){$('toast').classList.remove('on');open(el.dataset.open,el.dataset.a);}return;}
+  if(q('[data-livego]')){LK.step=PHONE?'':'prep';open('live');if(!PHONE)liveStart().catch(e=>{console.warn(e);LK.step='fail';sheet();});else{liveClose(true);LK.step='';sheet();}return;}
+  if(q('[data-livenext]')){LK.step='scan';sheet();return;}
+  if(q('[data-liveoff]')){liveClose(true);S.sheet=null;sheet();return;}
+  if(q('[data-sent]')){const ids=new Set(S.out.recs.map(r=>r.id));D.recs.forEach(r=>{if(ids.has(r.id))r.sent=true;});D.pdel=(D.pdel||[]).filter(x=>!S.out.dels.includes(x));S.ops=[];S.sheet=null;changed();sheet();toast('تمّ. السجلات الآن على الحاسوب.','info');return;}
+  if(q('[data-dir]')){chooseDir();return;}
+  if(el=q('[data-tl]')){toggleTool(el.dataset.id,el.dataset.tl);return;}
+  if(el=q('[data-del]')){const r=D.recs.find(x=>x.id===el.dataset.del);if(r)act('حذف: '+recLbl(r)+' · '+esc(stu(r.s).name),[],[r]);return;}
+  if(el=q('[data-note]')){const v=C.clean($('ntIn').value);if(v)act('ملاحظة · '+esc(stu(el.dataset.note).name),[rec(el.dataset.note,'note',v)],[]);return;}
+  if(el=q('[data-mv]')){const s=stu(el.dataset.id);s.c=el.dataset.mv;S.sheet=null;changed();sheet();toast('نُقل '+esc(s.name)+' إلى '+cn(cname(s.c)),'info');return;}
+  if(el=q('[data-sarch]')){const s=stu(el.dataset.sarch);s.arch=true;if(S.sheet&&S.sheet.t==='stu')S.sheet=null;changed();sheet();toast('أُرشف '+esc(s.name)+'. يمكن استعادته من «الصفوف والأسماء».','info');return;}
+  if(el=q('[data-sback]')){delete stu(el.dataset.sback).arch;changed();sheet();return;}
+  if(el=q('[data-carch]')){D.classes.find(c=>c.id===el.dataset.carch).arch=true;D.tt=D.tt.map(r=>r.map(c=>c&&c.c===el.dataset.carch?null:c));S.slotKey=null;autoClass();changed();sheet();return;}
+  if(el=q('[data-cback]')){delete D.classes.find(c=>c.id===el.dataset.cback).arch;autoClass();changed();sheet();return;}
+  if(q('[data-addc]')){const v=C.clean($('ncIn').value);if(v){D.classes.push({id:'c'+C.uid(),name:v});C.number(D);autoClass();changed();sheet();}return;}
+  if(el=q('[data-imc]')){keepText();S.im.cls=S.im.cls===el.dataset.imc?'':el.dataset.imc;S.im.pv=null;refresh();return;}
+  if(q('[data-impv]')){buildPreview();refresh();return;}
+  if(q('[data-imsave]')){saveImport();return;}
+  if(el=q('[data-pick]')){S.cls=el.dataset.pick;render();lessonSync();sheet();return;}
+  if(q('[data-tted]')){S.ttEdit=!S.ttEdit;sheet();return;}
+  if(el=q('[data-tc]')){const[d,p]=el.dataset.tc.split('-').map(Number),cur=D.tt[d][p],cl=liveClasses(),i=cur&&cur.c?cl.findIndex(c=>c.id===cur.c):-1;
+    D.tt[d][p]=!cur?(cl[0]?{c:cl[0].id}:{x:D.set.other}):cur.x?null:cl[i+1]?{c:cl[i+1].id}:{x:D.set.other};S.slotKey=null;autoClass();changed();sheet();return;}
+  if(q('[data-ics]')){download('my-lessons-reminders.ics',C.ics(D,now()),'text/calendar');return;}
+  if(el=q('[data-tdel]')){const tl=D.set.tools.find(x=>x.id===el.dataset.tdel);if(D.set.tools.filter(x=>!x.arch).length>1){tl.arch=true;changed();sheet();}return;}
+  if(q('[data-addt]')){const v=C.clean($('ntlIn').value);if(v){D.set.tools.push({id:'t'+C.uid(),n:v});changed();sheet();}return;}
+  if(q('[data-bkdl]')){download('hub-backup-'+today()+'.json',JSON.stringify(D),'application/json');return;}
+  if(el=q('[data-bk]')){const m=el.dataset.bk,b=S.bk;S.bk=null;
+    if(m!=='cancel'&&b){D=m==='merge'?C.merge(D,b):b;S.ops=[];S.slotKey=null;autoClass();changed();toast(m==='merge'?'دُمجت النسخة الاحتياطية':'استُبدلت البيانات بالنسخة الاحتياطية','info');}
+    refresh();return;}
+});
+document.addEventListener('change',e=>{
+  const t=e.target,ds=t.dataset;
+  if(t.id==='imFile'){readFile(t,u8=>{S.im.text=C.decode(u8);if($('imTxt'))$('imTxt').value=S.im.text;buildPreview();refresh();});return;}
+  if(t.id==='bkFile'){readFile(t,u8=>{let b=null;try{b=JSON.parse(C.decode(u8).replace(/^\ufeff/,''));}catch(x){}
+    if(b&&b.v&&Array.isArray(b.classes)&&Array.isArray(b.students)&&Array.isArray(b.recs))S.bk=fix(b);else{S.bk=null;toast('هذا الملف ليس نسخة احتياطية من البرنامج','warn');}refresh();});return;}
+  if(ds.cn){const c=D.classes.find(x=>x.id===ds.cn),v=C.clean(t.value);if(v){c.name=v;changed();}else t.value=c.name;return;}
+  if(ds.sf){const s=stu(ds.id),v=C.clean(t.value);if(!v){t.value=s[ds.sf];return;}
+    if(ds.sf==='full'){const auto=s.name===C.shortName(s.full);s.full=v;if(auto)s.name=C.shortName(v);}else s.name=v;
+    changed();if(S.sheet&&S.sheet.t==='ros')sheet();return;}
+  if(ds.pt){const[i,j]=ds.pt.split('-').map(Number);if(/^\d\d:\d\d$/.test(t.value)){D.periods[i][j]=t.value;S.slotKey=null;autoClass();changed();}return;}
+  if(t.id==='otIn'){const v=C.clean(t.value);if(v){const o=D.set.other;D.set.other=v;D.tt.forEach(r=>r.forEach(c=>{if(c&&c.x===o)c.x=v;}));changed();sheet();}return;}
+  if(ds.tn){const v=C.clean(t.value);if(v){D.set.tools.find(x=>x.id===ds.tn).n=v;changed();}return;}
+  if(t.id==='setT'){D.set.teacher=C.clean(t.value);changed();return;}
+  if(t.id==='setP'){const a=C.latin(t.value).split(/[,،\s]+/).map(x=>parseInt(x.replace('−','-'),10)).filter(n=>n&&Math.abs(n)<=100).slice(0,6);if(a.length){D.set.pts=a;S.pv=0;changed();}t.value=D.set.pts.join(', ');return;}
+  if(t.id==='setR'){const a=t.value.split('\n').map(C.clean).filter(Boolean).slice(0,8);if(a.length){D.set.reasons=a;S.reason=0;changed();}t.value=D.set.reasons.join('\n');return;}
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&S.sheet){S.sheet=null;S.ttEdit=false;sheet();}
+  if(e.key==='Enter'&&e.target.id==='ntIn'){const b=document.querySelector('[data-note]');if(b)b.click();}});
+
+/* ================= start ================= */
+async function boot(){
+  let local=null;try{local=JSON.parse(localStorage.getItem(LS)||'null');}catch(e){}
+  if(local&&local.v)D=fix(local);
+  if(!sv.fs)sv.state='nofs';
+  else{try{sv.dir=await KV.get('dir')||null;}catch(e){sv.dir=null;}
+    if(sv.dir){try{if(await sv.dir.queryPermission({mode:'readwrite'})==='granted')await attach();else sv.state='need';}catch(e){console.warn(e);sv.state='error';}}}
+  document.body.classList.toggle('phone',PHONE);
+  if(PHONE){if(!D.dev){D.dev=Math.random().toString(36).slice(2,5);persistLocal();}
+    const old=C.addDays(today(),-21),n0=D.recs.length;D.recs=D.recs.filter(r=>!(r.sent&&r.d<old));if(D.recs.length!==n0)persistLocal();}
+  else C.number(D);
+  autoClass();render();marker();lessonSync();checkBook();setInterval(tick,20000);addEventListener('focus',checkBook);
+  if(!PHONE&&!('BarcodeDetector' in window))ensureJsQR().then(()=>{S.jsq='ready';},()=>{S.jsq='fail';}).then(()=>{if(S.sheet&&S.sheet.t==='ph')sheet();});
+  if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol))navigator.serviceWorker.register('sw.js').catch(()=>{});
+  window.HUB={LK,get data(){return D;},S,sv,changed,rx,PHONE,get frames(){return qr&&qr.fr;},kv:{get:kvGet,set:kvSet},ready:true};
+}
+boot();
+})();
+
+</script>
+</body>
+</html>
